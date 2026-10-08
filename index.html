@@ -400,7 +400,7 @@
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       border: 2px solid #ffffff;
-      margin-bottom: 16px; /* مسافة واضحة لمنع الالتصاق */
+      margin-bottom: 16px;
     }
 
     .national-header-box {
@@ -536,12 +536,23 @@
       gap: 8px;
     }
 
-    .video-container-box video {
-      width: 100%;
-      max-width: 500px;
+    .iframe-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
       border-radius: 12px;
-      outline: none;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .iframe-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 12px;
     }
 
     /* Text Display Section */
@@ -1095,14 +1106,12 @@
           </button>
         </div>
 
-        <!-- Embedded Video MP4 Container -->
+        <!-- Embedded Video YouTube Container -->
         <div class="video-container-box">
-          <h4><i class="fa-solid fa-film"></i> شاهد العرض المرئي للقصة (38 ثانية):</h4>
-          <video controls preload="auto" playsinline>
-            <source src="video.mp4" type="video/mp4">
-            <source src="./video.mp4" type="video/mp4">
-            متصفحك لا يدعم تشغيل الفيديو.
-          </video>
+          <h4><i class="fa-solid fa-film"></i> شاهد العرض المرئي للقصة:</h4>
+          <div class="iframe-wrapper">
+            <iframe src="https://www.youtube.com/embed/0uF21shyMp4" title="العرض المرئي" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
       </section>
 
@@ -1147,6 +1156,14 @@
           <button class="btn btn-secondary" style="width:auto; color:var(--danger);" onclick="stopAudio()">
             <i class="fa-solid fa-stop"></i> إيقاف
           </button>
+        </div>
+
+        <!-- Extra Embedded Video Container at bottom of Reading page -->
+        <div class="video-container-box" style="margin-top: 30px;">
+          <h4><i class="fa-solid fa-circle-play"></i> فيديو إثرائي / قراءة النص المرئية:</h4>
+          <div class="iframe-wrapper">
+            <iframe src="https://www.youtube.com/embed/x-y9HuMeDUk" title="فيديو قراءة النص" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
       </section>
 
