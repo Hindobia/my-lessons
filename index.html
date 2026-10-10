@@ -50,7 +50,6 @@
 
     const stateRef = ref(db, 'classrooms/aljar_sagheer_data');
 
-    // استماع فوري لأي تغيير يحدث في قاعدة البيانات على أي جهاز
     onValue(stateRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -74,7 +73,6 @@
 
   <style>
     :root {
-      /* Palette inspired by the rich turquoise color image */
       --primary: #0e5a6a;
       --primary-light: #e6f6f8;
       --secondary: #008b9b;
@@ -91,961 +89,118 @@
       --font-read: 'Readex Pro', sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: var(--font-main);
-      background: var(--bg-gradient);
-      color: #1a2e35;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-    }
-
-    /* Header Styling */
-    .header {
-      background: #ffffff;
-      border-bottom: 4px solid var(--secondary);
-      padding: 14px 28px;
-      box-shadow: 0 4px 15px rgba(0, 139, 155, 0.08);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .school-info {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .school-badge {
-      width: 52px;
-      height: 52px;
-      background: var(--primary-light);
-      color: var(--primary);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      border: 2px solid var(--secondary);
-    }
-
-    .titles h1 {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .meta-cards-box {
-      background: #f0fdfa;
-      border: 2px solid #ccfbf1;
-      border-radius: 12px;
-      padding: 8px 16px;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .meta-item {
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .meta-item i {
-      color: var(--secondary);
-    }
-
-    .meta-item strong {
-      color: var(--primary);
-    }
-
-    /* Nav Tabs */
-    .nav-tabs {
-      background: #ffffff;
-      padding: 10px 24px;
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      overflow-x: auto;
-      box-shadow: inset 0 -2px 0 #ccfbf1;
-    }
-
-    .tab-btn {
-      flex: 1;
-      min-width: 140px;
-      background: #f0fdfa;
-      border: 1px solid #ccfbf1;
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-family: var(--font-main);
-      font-size: 15px;
-      font-weight: 700;
-      color: #335c67;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .tab-btn:hover {
-      background: var(--primary-light);
-      color: var(--primary);
-    }
-
-    .tab-btn.active {
-      background: var(--primary);
-      color: #ffffff;
-      border-color: var(--primary);
-      box-shadow: 0 4px 12px rgba(14, 90, 106, 0.3);
-      transform: translateY(-2px);
-    }
-
-    .tab-btn .step-num {
-      width: 24px;
-      height: 24px;
-      background: rgba(255,255,255,0.25);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-    }
-
-    .tab-btn.active .step-num {
-      background: #ffffff;
-      color: var(--primary);
-    }
-
-    /* Main Container */
-    .main-container {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 20px;
-      padding: 20px 24px;
-      max-width: 1600px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    /* Sidebar Controls */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .widget-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: var(--card-shadow);
-      border: 1px solid #e2e8f0;
-    }
-
-    .widget-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 2px dashed #99f6e4;
-      padding-bottom: 8px;
-    }
-
-    /* Attendance Checklist Styles */
-    .attendance-list {
-      max-height: 160px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .student-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      padding: 6px 10px;
-      background: #f0fdfa;
-      border-radius: 8px;
-      cursor: grab;
-      border: 1px solid #ccfbf1;
-    }
-
-    .student-item.absent {
-      background: #ffe4e6;
-      color: #9f1239;
-      text-decoration: line-through;
-      opacity: 0.6;
-    }
-
-    /* Random Picker */
-    .selected-student-box {
-      background: var(--primary-light);
-      border: 2px dashed var(--secondary);
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 12px;
-      min-height: 65px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .selected-student-name {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .btn {
-      width: 100%;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 10px;
-      font-family: var(--font-main);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
-      background: var(--secondary);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: #e6f6f8;
-      color: var(--primary);
-    }
-
-    .btn-secondary:hover {
-      background: #ccfbf1;
-    }
-
-    /* Scoreboard */
-    .teams-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .team-card {
-      background: #f0fdfa;
-      border: 1px solid #ccfbf1;
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-    }
-
-    .team-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 4px;
-    }
-
-    .team-score {
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--secondary);
-    }
-
-    .score-btns {
-      display: flex;
-      gap: 4px;
-      margin-top: 6px;
-      justify-content: center;
-    }
-
-    .mini-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 6px;
-      border: none;
-      font-weight: 800;
-      cursor: pointer;
-      background: #cbd5e1;
-      color: #1e293b;
-    }
-
-    .mini-btn.add {
-      background: var(--success);
-      color: #fff;
-    }
-
-    /* Timer */
-    .timer-display {
-      font-size: 32px;
-      font-family: monospace;
-      font-weight: 900;
-      color: var(--primary);
-      text-align: center;
-      margin: 8px 0;
-      background: var(--primary-light);
-      border-radius: 10px;
-      padding: 6px;
-    }
-
-    .timer-buttons-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .btn-time {
-      background: #f0fdfa;
-      border: 1px solid #ccfbf1;
-      border-radius: 6px;
-      padding: 6px 4px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--primary);
-      cursor: pointer;
-    }
-
-    .btn-time:hover {
-      background: var(--secondary);
-      color: #ffffff;
-    }
-
-    /* Main Content */
-    .content-area {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: var(--card-shadow);
-      border: 1px solid #e2e8f0;
-      min-height: 580px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .section-pane {
-      display: none;
-      animation: fadeIn 0.4s ease forwards;
-      height: 100%;
-    }
-
-    .section-pane.active {
-      display: block;
-    }
-
-    .pane-title {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
-      border-bottom: 3px solid var(--primary-light);
-      padding-bottom: 10px;
-    }
-
-    .pane-main-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .strategy-badge {
-      display: inline-block;
-      background: var(--primary-light);
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 700;
-      padding: 3px 12px;
-      border-radius: 20px;
-      border: 1px solid var(--secondary);
-    }
-
-    .pane-title i {
-      color: var(--secondary);
-    }
-
-    /* National Header Box in Warmup */
-    .national-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 22px;
-    }
-
-    .flag-img-large {
-      width: 130px;
-      height: 85px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      border: 2px solid #ffffff;
-      margin-bottom: 16px;
-    }
-
-    .national-header-box {
-      width: 100%;
-      background: linear-gradient(135deg, #047857 0%, #065f46 100%);
-      color: #ffffff;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 6px 18px rgba(4, 120, 87, 0.2);
-    }
-
-    .quran-verse {
-      font-size: 22px;
-      font-weight: 800;
-      color: #fef08a;
-      font-family: var(--font-read);
-      text-align: center;
-      margin-bottom: 12px;
-    }
-
-    .prayers-text {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #ecfdf5;
-      font-weight: 600;
-      text-align: justify;
-    }
-
-    /* Floating / Semi-Floating Custom Boxes for Thanks */
-    .thanks-floating-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .floating-box {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 16px 20px;
-      box-shadow: var(--float-shadow);
-      border: 1px solid #ccfbf1;
-      position: relative;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .floating-box:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(0, 139, 155, 0.2);
-    }
-
-    .floating-box.ministry {
-      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-      border-color: #bbf7d0;
-      color: #166534;
-    }
-
-    .floating-box.administration {
-      background: linear-gradient(135deg, #f0fdfa 0%, #e6f6f8 100%);
-      border-color: #99f6e4;
-      color: var(--primary);
-    }
-
-    .floating-box-title {
-      font-size: 15px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .floating-box-text {
-      font-size: 13.5px;
-      font-weight: 600;
-      line-height: 1.6;
-    }
-
-    /* Rules */
-    .rules-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .rule-card {
-      background: #f0fdfa;
-      border-right: 4px solid var(--secondary);
-      border-radius: 12px;
-      padding: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-
-    .rule-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--primary-light);
-      color: var(--primary);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .rule-text {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .riddle-box {
-      background: #fefce8;
-      border: 2px dashed #f59e0b;
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .riddle-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: #d97706;
-      margin-bottom: 10px;
-    }
-
-    .riddle-text {
-      font-size: 20px;
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 15px;
-    }
-
-    .btn-emergency-number {
-      background-color: #ffffff;
-      color: #000000;
-      border: 2px solid #e2e8f0;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: 800;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .btn-emergency-number:hover {
-      background-color: #facc15;
-      color: #000000;
-      border-color: #eab308;
-      box-shadow: 0 0 15px rgba(250, 204, 21, 0.6);
-    }
-
-    /* Video Player Box */
-    .video-container-box {
-      margin-top: 25px;
-      background: #0d2830;
-      border-radius: 16px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-    }
-
-    .video-container-box h4 {
-      color: #ffffff;
-      font-size: 16px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .iframe-wrapper {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-      height: 0;
-      overflow: hidden;
-      max-width: 100%;
-      border-radius: 12px;
-    }
-
-    .iframe-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      border-radius: 12px;
-    }
-
-    /* Text Display Section */
-    .text-display-box {
-      background: #fcfefd;
-      border: 2px solid #ccfbf1;
-      border-radius: 16px;
-      padding: 24px;
-      font-family: var(--font-read);
-      font-size: 23px;
-      line-height: 2.3;
-      color: #1e293b;
-      margin-bottom: 20px;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
-      user-select: text;
-    }
-
-    .text-paragraph {
-      margin-bottom: 18px;
-      text-align: justify;
-    }
-
-    .highlight-word {
-      background: #fef08a;
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .custom-highlight {
-      background: #ff7171 !important;
-      color: #ffffff !important;
-      border-radius: 4px;
-      padding: 2px 4px;
-    }
-
-    .text-controls-bar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      background: #f0fdfa;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #ccfbf1;
-      align-items: center;
-    }
-
-    /* Comprehension Qs */
-    .questions-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .q-card {
-      background: #f0fdfa;
-      border: 1px solid #ccfbf1;
-      border-radius: 14px;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .q-text {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    /* Vocab Matching */
-    .vocab-game-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 15px;
-    }
-
-    .vocab-col {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .vocab-card {
-      background: #ffffff;
-      border: 2px solid #99f6e4;
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--primary);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .vocab-card:hover {
-      border-color: var(--secondary);
-      transform: scale(1.02);
-    }
-
-    .vocab-card.selected {
-      border-color: var(--accent);
-      background: #fefce8;
-    }
-
-    .vocab-card.matched {
-      border-color: var(--success);
-      background: #ccfbf1;
-      color: #0f766e;
-      cursor: default;
-    }
-
-    /* Integration Section */
-    .integration-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-      margin-top: 15px;
-    }
-
-    .interactive-card {
-      background: #f0fdfa;
-      border: 2px solid #ccfbf1;
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .interactive-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 20px rgba(0, 139, 155, 0.12);
-      border-color: var(--secondary);
-    }
-
-    .interactive-card i {
-      font-size: 36px;
-      color: var(--secondary);
-      margin-bottom: 12px;
-    }
-
-    .interactive-card h3 {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-
-    .interactive-card p {
-      font-size: 14px;
-      color: #335c67;
-      line-height: 1.6;
-    }
-
-    /* Closure Cards Interactive */
-    .closure-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin: 20px 0;
-    }
-
-    .closure-card-item {
-      background: #ffffff;
-      border: 2px solid #ccfbf1;
-      border-radius: 16px;
-      padding: 18px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    }
-
-    .closure-card-question {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .closure-answer-box {
-      display: none;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: #166534;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      margin-top: 8px;
-      animation: fadeIn 0.3s ease;
-    }
-
-    /* Modals System */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(14, 42, 50, 0.7);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      padding: 20px;
-      animation: fadeIn 0.2s ease;
-    }
-
-    .modal-card {
-      background: #ffffff;
-      border-radius: 20px;
-      max-width: 520px;
-      width: 100%;
-      padding: 28px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      position: relative;
-      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .modal-civil-defense {
-      background: linear-gradient(135deg, #0f2d35 0%, #081d22 100%);
-      border: 4px solid var(--civil-defense-yellow);
-      color: #ffffff;
-    }
-
-    /* White to Yellow Text Animation */
-    .color-change-text {
-      font-size: 20px;
-      font-weight: 800;
-      line-height: 1.6;
-      animation: whiteToYellow 1.5s forwards ease-in-out;
-    }
-
-    @keyframes whiteToYellow {
-      0% {
-        color: #ffffff;
-      }
-      100% {
-        color: #facc15;
-      }
-    }
-
-    .modal-close-btn {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: currentColor;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    /* Footer Styling */
-    .footer {
-      background: #ffffff;
-      border-top: 1px solid #ccfbf1;
-      padding: 18px 24px;
-      margin-top: auto;
-    }
-
-    .footer-content {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      background: linear-gradient(135deg, #f0fdfa 0%, #e6f6f8 100%);
-      padding: 14px 24px;
-      border-radius: 14px;
-      border: 1px solid #99f6e4;
-    }
-
-    .footer-right, .footer-left {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .footer-left {
-      gap: 15px;
-    }
-
-    .whatsapp-btn {
-      background-color: #25d366;
-      color: #ffffff;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
-      transition: all 0.2s;
-    }
-
-    .whatsapp-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px rgba(37, 211, 102, 0.4);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    @media (max-width: 1024px) {
-      .main-container {
-        grid-template-columns: 1fr;
-      }
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-main); background: var(--bg-gradient); color: #1a2e35; min-height: 100vh; display: flex; flex-direction: column; user-select: none; }
+    .header { background: #ffffff; border-bottom: 4px solid var(--secondary); padding: 14px 28px; box-shadow: 0 4px 15px rgba(0, 139, 155, 0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .school-info { display: flex; align-items: center; gap: 15px; }
+    .school-badge { width: 52px; height: 52px; background: var(--primary-light); color: var(--primary); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; border: 2px solid var(--secondary); }
+    .titles h1 { font-size: 22px; font-weight: 800; color: var(--primary); }
+    .meta-cards-box { background: #f0fdfa; border: 2px solid #ccfbf1; border-radius: 12px; padding: 8px 16px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .meta-item { font-size: 14px; display: flex; align-items: center; gap: 6px; }
+    .meta-item i { color: var(--secondary); }
+    .meta-item strong { color: var(--primary); }
+    .nav-tabs { background: #ffffff; padding: 10px 24px; display: flex; justify-content: space-between; gap: 8px; overflow-x: auto; box-shadow: inset 0 -2px 0 #ccfbf1; }
+    .tab-btn { flex: 1; min-width: 140px; background: #f0fdfa; border: 1px solid #ccfbf1; padding: 12px 14px; border-radius: 12px; font-family: var(--font-main); font-size: 15px; font-weight: 700; color: #335c67; cursor: pointer; transition: all 0.25s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .tab-btn:hover { background: var(--primary-light); color: var(--primary); }
+    .tab-btn.active { background: var(--primary); color: #ffffff; border-color: var(--primary); box-shadow: 0 4px 12px rgba(14, 90, 106, 0.3); transform: translateY(-2px); }
+    .tab-btn .step-num { width: 24px; height: 24px; background: rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+    .tab-btn.active .step-num { background: #ffffff; color: var(--primary); }
+    .main-container { flex: 1; display: grid; grid-template-columns: 320px 1fr; gap: 20px; padding: 20px 24px; max-width: 1600px; margin: 0 auto; width: 100%; }
+    .sidebar { display: flex; flex-direction: column; gap: 18px; }
+    .widget-card { background: #ffffff; border-radius: 16px; padding: 18px; box-shadow: var(--card-shadow); border: 1px solid #e2e8f0; }
+    .widget-title { font-size: 15px; font-weight: 800; color: var(--primary); margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed #99f6e4; padding-bottom: 8px; }
+    .attendance-list { max-height: 160px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .student-item { display: flex; align-items: center; justify-content: space-between; font-size: 13px; padding: 6px 10px; background: #f0fdfa; border-radius: 8px; cursor: grab; border: 1px solid #ccfbf1; }
+    .student-item.absent { background: #ffe4e6; color: #9f1239; text-decoration: line-through; opacity: 0.6; }
+    .selected-student-box { background: var(--primary-light); border: 2px dashed var(--secondary); border-radius: 12px; padding: 14px; margin-bottom: 12px; min-height: 65px; display: flex; align-items: center; justify-content: center; text-align: center; }
+    .selected-student-name { font-size: 17px; font-weight: 800; color: var(--primary); }
+    .btn { width: 100%; padding: 10px 16px; border: none; border-radius: 10px; font-family: var(--font-main); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-primary { background: var(--secondary); color: #ffffff; }
+    .btn-primary:hover { background: var(--primary); transform: translateY(-1px); }
+    .btn-secondary { background: #e6f6f8; color: var(--primary); }
+    .btn-secondary:hover { background: #ccfbf1; }
+    .teams-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .team-card { background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 12px; padding: 10px; text-align: center; }
+    .team-name { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .team-score { font-size: 22px; font-weight: 900; color: var(--secondary); }
+    .score-btns { display: flex; gap: 4px; margin-top: 6px; justify-content: center; }
+    .mini-btn { width: 26px; height: 26px; border-radius: 6px; border: none; font-weight: 800; cursor: pointer; background: #cbd5e1; color: #1e293b; }
+    .mini-btn.add { background: var(--success); color: #fff; }
+    .timer-display { font-size: 32px; font-family: monospace; font-weight: 900; color: var(--primary); text-align: center; margin: 8px 0; background: var(--primary-light); border-radius: 10px; padding: 6px; }
+    .timer-buttons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+    .btn-time { background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 6px; padding: 6px 4px; font-size: 12px; font-weight: 700; color: var(--primary); cursor: pointer; }
+    .btn-time:hover { background: var(--secondary); color: #ffffff; }
+    .content-area { background: #ffffff; border-radius: 18px; padding: 28px; box-shadow: var(--card-shadow); border: 1px solid #e2e8f0; min-height: 580px; display: flex; flex-direction: column; }
+    .section-pane { display: none; animation: fadeIn 0.4s ease forwards; height: 100%; }
+    .section-pane.active { display: block; }
+    .pane-title { font-size: 22px; font-weight: 800; color: var(--primary); margin-bottom: 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; border-bottom: 3px solid var(--primary-light); padding-bottom: 10px; }
+    .pane-main-title { display: flex; align-items: center; gap: 10px; }
+    .strategy-badge { display: inline-block; background: var(--primary-light); color: var(--primary); font-size: 13px; font-weight: 700; padding: 3px 12px; border-radius: 20px; border: 1px solid var(--secondary); }
+    .pane-title i { color: var(--secondary); }
+    .national-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 22px; }
+    .flag-img-large { width: 130px; height: 85px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: 2px solid #ffffff; margin-bottom: 16px; }
+    .national-header-box { width: 100%; background: linear-gradient(135deg, #047857 0%, #065f46 100%); color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 6px 18px rgba(4, 120, 87, 0.2); }
+    .quran-verse { font-size: 22px; font-weight: 800; color: #fef08a; font-family: var(--font-read); text-align: center; margin-bottom: 12px; }
+    .prayers-text { font-size: 15px; line-height: 1.8; color: #ecfdf5; font-weight: 600; text-align: justify; }
+    .thanks-floating-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+    .floating-box { background: #ffffff; border-radius: 16px; padding: 16px 20px; box-shadow: var(--float-shadow); border: 1px solid #ccfbf1; position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .floating-box:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 139, 155, 0.2); }
+    .floating-box.ministry { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-color: #bbf7d0; color: #166534; }
+    .floating-box.administration { background: linear-gradient(135deg, #f0fdfa 0%, #e6f6f8 100%); border-color: #99f6e4; color: var(--primary); }
+    .floating-box-title { font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .floating-box-text { font-size: 13.5px; font-weight: 600; line-height: 1.6; }
+    .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .rule-card { background: #f0fdfa; border-right: 4px solid var(--secondary); border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .rule-icon { width: 40px; height: 40px; background: var(--primary-light); color: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .rule-text { font-size: 14px; font-weight: 700; color: var(--primary); }
+    .riddle-box { background: #fefce8; border: 2px dashed #f59e0b; border-radius: 16px; padding: 20px; text-align: center; margin-top: 20px; }
+    .riddle-title { font-size: 18px; font-weight: 800; color: #d97706; margin-bottom: 10px; }
+    .riddle-text { font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 15px; }
+    .btn-emergency-number { background-color: #ffffff; color: #000000; border: 2px solid #e2e8f0; padding: 10px 20px; font-size: 16px; font-weight: 800; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; }
+    .btn-emergency-number:hover { background-color: #facc15; color: #000000; border-color: #eab308; box-shadow: 0 0 15px rgba(250, 204, 21, 0.6); }
+    .video-container-box { margin-top: 25px; background: #0d2830; border-radius: 16px; padding: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+    .video-container-box h4 { color: #ffffff; font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .iframe-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 12px; }
+    .iframe-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; border-radius: 12px; }
+    .text-display-box { background: #fcfefd; border: 2px solid #ccfbf1; border-radius: 16px; padding: 24px; font-family: var(--font-read); font-size: 23px; line-height: 2.3; color: #1e293b; margin-bottom: 20px; box-shadow: inset 0 2px 6px rgba(0,0,0,0.02); user-select: text; }
+    .text-paragraph { margin-bottom: 18px; text-align: justify; }
+    .highlight-word { background: #fef08a; padding: 2px 6px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .custom-highlight { background: #ff7171 !important; color: #ffffff !important; border-radius: 4px; padding: 2px 4px; }
+    .text-controls-bar { display: flex; gap: 10px; flex-wrap: wrap; background: #f0fdfa; padding: 12px; border-radius: 12px; border: 1px solid #ccfbf1; align-items: center; }
+    .questions-list { display: flex; flex-direction: column; gap: 14px; }
+    .q-card { background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .q-text { font-size: 18px; font-weight: 700; color: var(--primary); }
+    .vocab-game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
+    .vocab-col { display: flex; flex-direction: column; gap: 12px; }
+    .vocab-card { background: #ffffff; border: 2px solid #99f6e4; border-radius: 12px; padding: 14px; text-align: center; font-size: 20px; font-weight: 800; color: var(--primary); cursor: pointer; transition: all 0.2s; }
+    .vocab-card:hover { border-color: var(--secondary); transform: scale(1.02); }
+    .vocab-card.selected { border-color: var(--accent); background: #fefce8; }
+    .vocab-card.matched { border-color: var(--success); background: #ccfbf1; color: #0f766e; cursor: default; }
+    .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 15px; }
+    .interactive-card { background: #f0fdfa; border: 2px solid #ccfbf1; border-radius: 16px; padding: 20px; text-align: center; transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; }
+    .interactive-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0, 139, 155, 0.12); border-color: var(--secondary); }
+    .interactive-card i { font-size: 36px; color: var(--secondary); margin-bottom: 12px; }
+    .interactive-card h3 { font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+    .interactive-card p { font-size: 14px; color: #335c67; line-height: 1.6; }
+    .closure-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 20px 0; }
+    .closure-card-item { background: #ffffff; border: 2px solid #ccfbf1; border-radius: 16px; padding: 18px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+    .closure-card-question { font-size: 16px; font-weight: 800; color: var(--primary); }
+    .closure-answer-box { display: none; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 10px; border-radius: 10px; font-size: 14px; font-weight: 700; margin-top: 8px; animation: fadeIn 0.3s ease; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(14, 42, 50, 0.7); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px; animation: fadeIn 0.2s ease; }
+    .modal-card { background: #ffffff; border-radius: 20px; max-width: 520px; width: 100%; padding: 28px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .modal-civil-defense { background: linear-gradient(135deg, #0f2d35 0%, #081d22 100%); border: 4px solid var(--civil-defense-yellow); color: #ffffff; }
+    .color-change-text { font-size: 20px; font-weight: 800; line-height: 1.6; animation: whiteToYellow 1.5s forwards ease-in-out; }
+    @keyframes whiteToYellow { 0% { color: #ffffff; } 100% { color: #facc15; } }
+    .modal-close-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.1); border: none; color: currentColor; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; }
+    .footer { background: #ffffff; border-top: 1px solid #ccfbf1; padding: 18px 24px; margin-top: auto; }
+    .footer-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; background: linear-gradient(135deg, #f0fdfa 0%, #e6f6f8 100%); padding: 14px 24px; border-radius: 14px; border: 1px solid #99f6e4; }
+    .footer-right, .footer-left { font-size: 15px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+    .footer-left { gap: 15px; }
+    .whatsapp-btn { background-color: #25d366; color: #ffffff; width: 44px; height: 44px; border-radius: 50%; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); transition: all 0.2s; }
+    .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(37, 211, 102, 0.4); }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    @media (max-width: 1024px) { .main-container { grid-template-columns: 1fr; } .footer-content { flex-direction: column; text-align: center; } }
   </style>
 </head>
 <body>
@@ -1226,7 +381,6 @@
           <span class="strategy-badge">استراتيجية العصف الذهني والتهيئة الحفزية</span>
         </div>
 
-        <!-- National Section Container -->
         <div class="national-container">
           <img src="https://flagpedia.net/data/flags/w580/sa.png" alt="علم المملكة العربية السعودية" class="flag-img-large">
           
@@ -1236,7 +390,6 @@
               اللهم احفظ وطننا الغالي المملكة العربية السعودية من كل سوء ومكروه ، واحفظ لنا قائدنا وإمامنا خادم الحرمين الشريفين الملك سلمان بن عبدالعزيز آل سعود حفظه الله .. وولي عهده الأمين صاحب السمو الملكي الأمير محمد بن سلمان بن عبدالعزيز آل سعود ,ايدهم بالنصر والتمكين وأعزهم بالإسلام .. وأعز بهم الإسلام والمسلمين.
             </div>
 
-            <!-- Floating Boxes for Thanks -->
             <div class="thanks-floating-grid">
               <div class="floating-box ministry">
                 <div class="floating-box-title"><i class="fa-solid fa-award"></i> شكر وتقدير</div>
@@ -1251,7 +404,6 @@
           </div>
         </div>
 
-        <!-- Rules -->
         <p style="font-size:15px; font-weight:700; color:#475569; margin-bottom:10px;">قواعد الصف الذكي (التهيئة):</p>
         <div class="rules-grid">
           <div class="rule-card">
@@ -1268,7 +420,6 @@
           </div>
         </div>
 
-        <!-- Interactive Riddle Warm-up -->
         <div class="riddle-box">
           <div class="riddle-title"><i class="fa-solid fa-lightbulb"></i> لغز التمهيد الاستكشافي:</div>
           <div class="riddle-text">"ما هو الرقم المجاني المكون من 3 أرقام الذي نتصل به للإطفاء وإنقاذ المنازل؟"</div>
@@ -1277,7 +428,6 @@
           </button>
         </div>
 
-        <!-- Embedded Video YouTube Container -->
         <div class="video-container-box">
           <h4><i class="fa-solid fa-film"></i> شاهد العرض المرئي للقصة:</h4>
           <div class="iframe-wrapper">
@@ -1332,7 +482,6 @@
           </button>
         </div>
 
-        <!-- Extra Embedded Video Container at bottom of Reading page -->
         <div class="video-container-box" style="margin-top: 30px;">
           <h4><i class="fa-solid fa-circle-play"></i> فيديو إثرائي / قراءة النص المرئية:</h4>
           <div class="iframe-wrapper">
@@ -1354,37 +503,23 @@
         <div class="questions-list">
           <div class="q-card">
             <span class="q-text">١. مَاذَا شَاهَدَ فَوَّازٌ؟</span>
-            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('١. مَاذَا شَاهَدَ فَوَّازٌ؟', 'شَاهَدَ فَوَّازٌ دُخَانًا كَثِيفًا يَتَصَاعَدُ مِنْ مَنْزِلِ جَارِهِمْ.', '👀')">
-              عرض الإجابة
-            </button>
+            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('١. مَاذَا شَاهَدَ فَوَّازٌ؟', 'شَاهَدَ فَوَّازٌ دُخَانًا كَثِيفًا يَتَصَاعَدُ مِنْ مَنْزِلِ جَارِهِمْ.', '👀')">عرض الإجابة</button>
           </div>
-
           <div class="q-card">
             <span class="q-text">٢. مَاذَا طَلَبَتِ الأُمُّ مِنْ فَوَّازٍ؟</span>
-            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('٢. مَاذَا طَلَبَتِ الأُمُّ مِنْ فَوَّازٍ؟', 'طَلَبَتْ مِنْهُ أَنْ يُبْلِغَ الدَّفَاعَ المَدَنِيَّ.', '📞')">
-              عرض الإجابة
-            </button>
+            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('٢. مَاذَا طَلَبَتِ الأُمُّ مِنْ فَوَّازٍ؟', 'طَلَبَتْ مِنْهُ أَنْ يُبْلِغَ الدَّفَاعَ المَدَنِيَّ.', '📞')">عرض الإجابة</button>
           </div>
-
           <div class="q-card">
             <span class="q-text">٣. مَا رَقْمُ هَاتِفِ الدَّفَاعِ المَدَنِيِّ؟</span>
-            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('٣. مَا رَقْمُ هَاتِفِ الدَّفَاعِ المَدَنِيِّ؟', 'رَقْمُ هَاتِفِ الدَّفَاعِ المَدَنِيِّ هُوَ (٩٩٨).', '🚒')">
-              عرض الإجابة
-            </button>
+            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('٣. مَا رَقْمُ هَاتِفِ الدَّفَاعِ المَدَنِيِّ؟', 'رَقْمُ هَاتِفِ الدَّفَاعِ المَدَنِيِّ هُوَ (٩٩٨).', '🚒')">عرض الإجابة</button>
           </div>
-
           <div class="q-card">
             <span class="q-text">٤. مَنِ الَّذِي أَطْفَأَ الْحَرِيقَ؟</span>
-            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('٤. مَنِ الَّذِي أَطْفَأَ الْحَرِيقَ؟', 'رِجَالُ الإِطْفَاءِ (الدَّفَاعُ المَدَنِيُّ).', '👨‍🚒')">
-              عرض الإجابة
-            </button>
+            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('٤. مَنِ الَّذِي أَطْفَأَ الْحَرِيقَ؟', 'رِجَالُ الإِطْفَاءِ (الدَّفَاعُ المَدَنِيُّ).', '👨‍🚒')">عرض الإجابة</button>
           </div>
-
           <div class="q-card">
             <span class="q-text">٥. لِمَاذَا شَكَرَ صَاحِبُ المَنْزِلِ جَارَهُ فَوَّازًا؟</span>
-            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('٥. لِمَاذَا شَكَرَ صَاحِبُ المَنْزِلِ جَارَهُ؟', 'شَكَرَهُ عَلَى حُسْنِ تَصَرُّفِهِ وَإِبْلاغِهِ السَّرِيعِ عَنِ الْحَرِيقِ.', '👏')">
-              عرض الإجابة
-            </button>
+            <button class="btn btn-primary" style="width:140px;" onclick="showQuestionAnswer('٥. لِمَاذَا شَكَرَ صَاحِبُ المَنْزِلِ جَارَهُ؟', 'شَكَرَهُ عَلَى حُسْنِ تَصَرُّفِهِ وَإِبْلاغِهِ السَّرِيعِ عَنِ الْحَرِيقِ.', '👏')">عرض الإجابة</button>
           </div>
         </div>
       </section>
@@ -1408,7 +543,6 @@
             <div class="vocab-card" id="word-3" onclick="selectVocab('word', 3, 'إخماد')">إِخْمَادُ</div>
             <div class="vocab-card" id="word-4" onclick="selectVocab('word', 4, 'مكروه')">مَكْرُوهٌ</div>
           </div>
-
           <div class="vocab-col">
             <div class="vocab-card" id="opp-1" onclick="selectVocab('opp', 1, 'مذعوراً')">مُطْمَئِنًّا</div>
             <div class="vocab-card" id="opp-2" onclick="selectVocab('opp', 2, 'إخماد')">إِشْعَالُ</div>
@@ -1436,13 +570,11 @@
             <h3>التكامل الإسلامي</h3>
             <p>اضغط للتعرف على وصية النبي ﷺ بالجار وحقوقه المشروعة.</p>
           </div>
-
           <div class="interactive-card" onclick="triggerCardAction('حُسن التصرف', 'عند الأزمات: الهدوء - السرعة - الاتصال بالرقم الصحيح (٩٩٨)', '🚨')">
             <i class="fa-solid fa-phone-volume"></i>
             <h3>الوعي والأمان</h3>
             <p>كيف تتصرف بحكمة وسرعة عند رؤية حالة طارئة؟</p>
           </div>
-
           <div class="interactive-card" onclick="triggerCardAction('تقدير أبطال الوطن', 'نقدم كل الشكر والتقدير لرجال الدفاع المدني على جهودهم العظيمة.', '🫡')">
             <i class="fa-solid fa-award"></i>
             <h3>شكر الأبطال</h3>
@@ -1466,38 +598,26 @@
         <div class="closure-cards-grid">
           <div class="closure-card-item">
             <div class="closure-card-question">🃏 بطاقة 1: ما رقم هاتف الدفاع المدني؟</div>
-            <button class="btn btn-secondary" onclick="toggleAnswer('ans1')">
-              <i class="fa-solid fa-eye"></i> إظهار / تأكيد الإجابة
-            </button>
+            <button class="btn btn-secondary" onclick="toggleAnswer('ans1')"><i class="fa-solid fa-eye"></i> إظهار الإجابة</button>
             <div class="closure-answer-box" id="ans1">الرقم هو (٩٩٨)</div>
           </div>
-
           <div class="closure-card-item">
             <div class="closure-card-question">🃏 بطاقة 2: ما ضد كلمة (كثيفاً)؟</div>
-            <button class="btn btn-secondary" onclick="toggleAnswer('ans2')">
-              <i class="fa-solid fa-eye"></i> إظهار / تأكيد الإجابة
-            </button>
+            <button class="btn btn-secondary" onclick="toggleAnswer('ans2')"><i class="fa-solid fa-eye"></i> إظهار الإجابة</button>
             <div class="closure-answer-box" id="ans2">ضدها: قَلِيلاً</div>
           </div>
-
           <div class="closure-card-item">
             <div class="closure-card-question">🃏 بطاقة 3: ماذا تعني كلمة (مذعوراً)؟</div>
-            <button class="btn btn-secondary" onclick="toggleAnswer('ans3')">
-              <i class="fa-solid fa-eye"></i> إظهار / تأكيد الإجابة
-            </button>
+            <button class="btn btn-secondary" onclick="toggleAnswer('ans3')"><i class="fa-solid fa-eye"></i> إظهار الإجابة</button>
             <div class="closure-answer-box" id="ans3">معناها: خَائِفًا وَمُسْتَعْجِلاً</div>
           </div>
-
           <div class="closure-card-item">
             <div class="closure-card-question">🃏 بطاقة 4: اذكر تصرفاً حسناً قام به فواز.</div>
-            <button class="btn btn-secondary" onclick="toggleAnswer('ans4')">
-              <i class="fa-solid fa-eye"></i> إظهار / تأكيد الإجابة
-            </button>
+            <button class="btn btn-secondary" onclick="toggleAnswer('ans4')"><i class="fa-solid fa-eye"></i> إظهار الإجابة</button>
             <div class="closure-answer-box" id="ans4">الإبْلاغُ السَّرِيعُ عَنِ الْحَرِيقِ وَوَصْفُ الْمَوْقِعِ</div>
           </div>
         </div>
 
-        <!-- Exit Ticket Button -->
         <div style="background:var(--primary-light); border:2px solid #ccfbf1; border-radius:16px; padding:20px; text-align:center; margin-top:20px;">
           <h4 style="color:var(--primary); margin-bottom:12px;"><i class="fa-solid fa-trophy"></i> حاسبة النتائج وتتويج الأبطال:</h4>
           <button class="btn btn-primary" style="max-width:280px; margin:0 auto; font-size:16px; padding:12px;" onclick="calculateAndAnnounceWinner()">
@@ -1509,7 +629,6 @@
     </main>
   </div>
 
-  <!-- Updated Footer Info -->
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-right">
@@ -1531,19 +650,22 @@
       <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
       <div id="modalIcon" style="font-size: 54px; margin-bottom: 10px;">💡</div>
       <h2 id="modalTitle" style="color:var(--primary); margin-bottom:12px; font-size:24px;">عنوان الرسالة</h2>
-      <div id="modalBody" style="font-size:18px; font-weight:700; color:#1a2e35; line-height:1.6; max-height:250px; overflow-y:auto;">محتوى الرسالة المنبثقة...</div>
+      <div id="modalBody" style="font-size:18px; font-weight:700; color:#1a2e35; line-height:1.6; max-height:250px; overflow-y:auto;">محتوى الرسالة...</div>
     </div>
   </div>
 
-  <!-- Custom Confirmation Modal for Reset -->
+  <!-- Password Protected Modal for Reset -->
   <div class="modal-overlay" id="confirmModal">
-    <div class="modal-card" style="max-width: 420px;">
-      <div style="font-size: 48px; color: var(--accent); margin-bottom: 10px;"><i class="fa-solid fa-triangle-exclamation"></i></div>
-      <h2 style="color: var(--primary); margin-bottom: 10px; font-size: 22px;">تأكيد إعادة الضبط</h2>
-      <p style="font-size: 16px; font-weight: 700; color: #335c67; margin-bottom: 20px; line-height: 1.6;">هل أنت متأكد من رغبتك في إعادة ضبط وتفريغ جميع المجموعات وسجل السحب؟</p>
+    <div class="modal-card" style="max-width: 400px;">
+      <div style="font-size: 42px; color: var(--accent); margin-bottom: 10px;"><i class="fa-solid fa-lock"></i></div>
+      <h2 style="color: var(--primary); margin-bottom: 8px; font-size: 20px;">حماية إعادة الضبط</h2>
+      <p style="font-size: 14px; font-weight: 700; color: #335c67; margin-bottom: 15px;">الرجاء إدخال الرقم السري لإعادة ضبط المجموعات:</p>
+      
+      <input type="password" id="resetPinInput" placeholder="أدخل الرقم السري" style="width: 100%; padding: 12px; font-size: 18px; text-align: center; border: 2px solid #ccfbf1; border-radius: 10px; outline: none; margin-bottom: 15px; font-family: var(--font-main);" maxlength="4">
+      
       <div style="display: flex; gap: 10px;">
         <button class="btn btn-secondary" onclick="closeConfirmModal()">إلغاء</button>
-        <button class="btn btn-primary" onclick="executeResetGroups()" style="background: var(--danger);">تأكيد إعادة الضبط</button>
+        <button class="btn btn-primary" onclick="verifyAndExecuteReset()" style="background: var(--danger);">تأكيد</button>
       </div>
     </div>
   </div>
@@ -1557,7 +679,6 @@
       'رواد القيم': '🌟 رواد القيم'
     };
 
-    // Render Attendance Checklist & Groups
     function renderAttendance() {
       const list = document.getElementById("attendanceList");
       if(!list) return;
@@ -1588,7 +709,6 @@
       playAudioBeep('error');
     }
 
-    // Drag & Drop
     function allowDrop(ev) { ev.preventDefault(); }
     function dropStudent(ev, groupName) {
       ev.preventDefault();
@@ -1611,24 +731,35 @@
       });
     }
 
+    // إظهار نافذة إدخال الرقم السري
     function confirmResetGroups() {
+      document.getElementById("resetPinInput").value = "";
       document.getElementById("confirmModal").style.display = "flex";
+      playAudioBeep('click');
     }
 
     function closeConfirmModal() {
       document.getElementById("confirmModal").style.display = "none";
     }
 
-    function executeResetGroups() {
-      window.appState.attendance.forEach(s => s.group = null);
-      window.appState.drawnTeams = [];
-      saveDataToFirebase();
-      renderAttendance();
-      closeConfirmModal();
-      playAudioBeep('siren');
+    // التحقق من الرقم السري (1430) وتنفيذ إعادة الضبط
+    function verifyAndExecuteReset() {
+      const pin = document.getElementById("resetPinInput").value;
+      if (pin === "1430") {
+        window.appState.attendance.forEach(s => s.group = null);
+        window.appState.drawnTeams = [];
+        saveDataToFirebase();
+        renderAttendance();
+        closeConfirmModal();
+        playAudioBeep('siren');
+        showModal("تم بنجاح ✅", "تمت إعادة ضبط المجموعات وتفريغها بنجاح.", "🔄");
+      } else {
+        playAudioBeep('error');
+        alert("الرقم السري غير صحيح! يرجى المحاولة مرة أخرى.");
+        document.getElementById("resetPinInput").value = "";
+      }
     }
 
-    // Teams info
     const teams = [
       { id: 'score1', name: '🦅 صقور الوطن' },
       { id: 'score2', name: '🐎 فرسان العرب' },
@@ -1636,7 +767,6 @@
       { id: 'score4', name: '🌟 رواد القيم' }
     ];
 
-    // Web Audio Synthesizer Sound Generator
     function playAudioBeep(type) {
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1644,163 +774,78 @@
         const gain = ctx.createGain();
         osc.connect(gain);
         gain.connect(ctx.destination);
-
         if (type === 'success') {
-          osc.type = 'sine';
           osc.frequency.setValueAtTime(523.25, ctx.currentTime);
           osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3);
           gain.gain.setValueAtTime(0.3, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.3);
+          osc.start(); osc.stop(ctx.currentTime + 0.3);
         } else if (type === 'error') {
           osc.type = 'sawtooth';
           osc.frequency.setValueAtTime(180, ctx.currentTime);
           gain.gain.setValueAtTime(0.3, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.3);
+          osc.start(); osc.stop(ctx.currentTime + 0.3);
         } else if (type === 'siren') {
           osc.type = 'triangle';
           osc.frequency.setValueAtTime(600, ctx.currentTime);
           osc.frequency.linearRampToValueAtTime(900, ctx.currentTime + 0.2);
           gain.gain.setValueAtTime(0.3, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.4);
+          osc.start(); osc.stop(ctx.currentTime + 0.4);
         } else {
-          osc.type = 'sine';
           osc.frequency.setValueAtTime(440, ctx.currentTime);
           gain.gain.setValueAtTime(0.2, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.15);
+          osc.start(); osc.stop(ctx.currentTime + 0.15);
         }
       } catch(e){}
     }
 
-    // Modal Helpers
-    function showModal(title, body, icon = '💡', isCivilDefense = false) {
-      const overlay = document.getElementById('genericModal');
-      const card = document.getElementById('modalCard');
-      const bodyEl = document.getElementById('modalBody');
-      
+    function showModal(title, body, icon = '💡') {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalIcon').innerText = icon;
-
-      if (isCivilDefense) {
-        card.className = 'modal-card modal-civil-defense';
-        document.getElementById('modalTitle').style.color = 'var(--civil-defense-yellow)';
-        bodyEl.className = 'color-change-text';
-        bodyEl.innerHTML = body;
-      } else {
-        card.className = 'modal-card';
-        document.getElementById('modalTitle').style.color = 'var(--primary)';
-        bodyEl.className = '';
-        bodyEl.style.fontSize = '18px';
-        bodyEl.style.fontWeight = '700';
-        bodyEl.style.color = '#1a2e35';
-        bodyEl.innerHTML = body;
-      }
-
-      overlay.style.display = 'flex';
-      playAudioBeep('success');
+      document.getElementById('modalBody').innerHTML = body;
+      document.getElementById('genericModal').style.display = 'flex';
     }
+    function closeModal() { document.getElementById('genericModal').style.display = 'none'; }
 
-    function closeModal() {
-      document.getElementById('genericModal').style.display = 'none';
-    }
-
-    // Civil Defense Modal
     function openCivilDefenseModal() {
       playAudioBeep('siren');
-      const bodyText = "الرقم المجاني الموحد للطوارئ والإطفاء في المملكة العربية السعودية هو (998)";
-      showModal("الدفاع المدني السعودي 🚒", bodyText, "🚒", true);
+      showModal("الدفاع المدني السعودي 🚒", "الرقم المجاني الموحد للطوارئ والإطفاء في المملكة العربية السعودية هو (998)", "🚒");
     }
 
-    // Tab Switcher
     function switchTab(index) {
-      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', i === index);
-      });
-      document.querySelectorAll('.section-pane').forEach((pane, i) => {
-        pane.classList.toggle('active', i === index);
-      });
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === index));
+      document.querySelectorAll('.section-pane').forEach((pane, i) => pane.classList.toggle('active', i === index));
       playAudioBeep('click');
     }
 
-    // Student Random Picker
-    let isPicking = false;
     function pickRandomStudent() {
       const presents = window.appState.attendance.filter(s => s.present);
-      if (presents.length === 0) {
-        showModal("⚠️ تنبيه", "جميع الطلاب غائبون!");
-        return;
-      }
-      if (isPicking) return;
-      isPicking = true;
-
-      const display = document.getElementById('studentDisplay');
-      let counter = 0;
-      const interval = setInterval(() => {
-        const tempPick = presents[Math.floor(Math.random() * presents.length)];
-        display.innerText = tempPick.fullName;
-        playAudioBeep('click');
-        counter++;
-        if (counter > 14) {
-          clearInterval(interval);
-          const finalPick = presents[Math.floor(Math.random() * presents.length)];
-          display.innerText = finalPick.fullName;
-          isPicking = false;
-          playAudioBeep('success');
-          confetti({ particleCount: 35, spread: 60, origin: { y: 0.8 } });
-        }
-      }, 70);
+      if (presents.length === 0) { showModal("⚠️ تنبيه", "جميع الطلاب غائبون!"); return; }
+      const finalPick = presents[Math.floor(Math.random() * presents.length)];
+      document.getElementById('studentDisplay').innerText = finalPick.fullName;
+      playAudioBeep('success');
+      confetti({ particleCount: 35, spread: 60, origin: { y: 0.8 } });
     }
 
-    // Random Team Picker without repetition until all 4 are selected
     function pickRandomTeam() {
       let availableTeams = teamNamesList.filter(t => !window.appState.drawnTeams.includes(t));
-      
       if (availableTeams.length === 0) {
         window.appState.drawnTeams = [];
         availableTeams = [...teamNamesList];
-        showModal("🔄 دورة جديدة", "تم الانتهاء من جميع المجموعات الأربع! نبدأ دورة سحب جديدة الآن.", "🔄");
       }
-
       const randomTeamKey = availableTeams[Math.floor(Math.random() * availableTeams.length)];
       window.appState.drawnTeams.push(randomTeamKey);
       saveDataToFirebase();
 
-      const teamFullName = teamFullNamesMap[randomTeamKey];
       const members = window.appState.attendance.filter(s => s.group === randomTeamKey);
-      
-      let membersHtml = members.length > 0 
-        ? members.map(m => `<span style="display:inline-block; background:#f0fdfa; padding:4px 8px; border-radius:6px; margin:3px; font-size:13px; font-weight:700; border:1px solid #ccfbf1; color:var(--primary);">${m.fullName}</span>`).join('') 
-        : '<span style="color:#64748b; font-size:13px;">لايوجد طلاب مسجلين في هذه المجموعة حالياً.</span>';
-
-      let message = `
-        <div style="font-size:22px; font-weight:900; color:var(--secondary); margin-bottom:12px;">✨ [ ${teamFullName} ] ✨</div>
-        <hr style="border:0; border-top:1px dashed #ccfbf1; margin:10px 0;">
-        <div style="font-size:15px; font-weight:800; color:var(--primary); margin-bottom:8px;">👨‍🎓 أعضاء المجموعة:</div>
-        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:4px; max-height:150px; overflow-y:auto; padding:4px;">${membersHtml}</div>
-        <div style="margin-top:12px; font-size:12px; color:#335c67;">المجموعات المتبقية في هذه الدورة: (${teamNamesList.length - window.appState.drawnTeams.length}) من ${teamNamesList.length}</div>
-      `;
-
-      showModal("🎲 اختيار مجموعة عشوائية", message, "👥");
+      let membersHtml = members.length > 0 ? members.map(m => `<span>${m.fullName}</span>`).join(', ') : 'لايوجد طلاب مسجلين.';
+      showModal("🎲 مجموعة عشوائية", `<b>${teamFullNamesMap[randomTeamKey]}</b><br><br>${membersHtml}`, "👥");
       confetti({ particleCount: 50, spread: 70, origin: { y: 0.7 } });
     }
 
-    // Scoreboard
     function addScore(teamId, val) {
       const el = document.getElementById(teamId);
-      let curr = parseInt(el.innerText);
-      curr = Math.max(0, curr + val);
-      el.innerText = curr;
-      if (val > 0) {
-        playAudioBeep('success');
-        confetti({ particleCount: 20, spread: 40, origin: { x: 0.2, y: 0.7 } });
-      }
+      el.innerText = Math.max(0, parseInt(el.innerText) + val);
+      if (val > 0) playAudioBeep('success');
     }
 
     // Activity Timer
@@ -1854,176 +899,33 @@
       document.getElementById('timerToggleBtn').innerHTML = '<i class="fa-solid fa-play"></i> تشغيل';
     }
 
-    // Text & Audio Reading Engine
-    let speechUtterance = null;
-
-    function getSelectedOrFullText() {
-      const selection = window.getSelection().toString().trim();
-      if (selection.length > 0) return selection;
-      
-      return "شَاهَدَ فَوَّازٌ دُخَانًا كَثِيفًا يَتَصَاعَدُ مِنْ مَنْزِلِ جَارِهِمْ، فَأَسْرَعَ مَذْعُورًا لِيُخْبِرَ أُمَّهُ بِالأَمْرِ. قَالَتِ الأُمُّ: هَيَّا يَا فَوَّازُ، أَبْلِغِ الدَّفَاعَ المَدَنِيَّ. فَوَّازٌ: أُمِّي، لا أَعْرِفُ رَقْمَ هَاتِفِ الدَّفَاعِ المَدَنِيِّ. الأُمُّ: الرَّقْمُ هُوَ ٩٩٨.";
-    }
-
-    function playSelectedText() {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const textToRead = getSelectedOrFullText();
-        speechUtterance = new SpeechSynthesisUtterance(textToRead);
-        speechUtterance.lang = 'ar-SA';
-        speechUtterance.rate = 0.85;
-        window.speechSynthesis.speak(speechUtterance);
-      }
-    }
-
-    function pauseAudio() {
-      if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
-        window.speechSynthesis.pause();
-      }
-    }
-
-    function resumeAudio() {
-      if ('speechSynthesis' in window && window.speechSynthesis.paused) {
-        window.speechSynthesis.resume();
-      }
-    }
-
-    function stopAudio() {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-    }
-
-    function highlightSelection() {
-      const sel = window.getSelection();
-      if (!sel.isCollapsed && sel.rangeCount > 0) {
-        const range = sel.getRangeAt(0);
-        const span = document.createElement('span');
-        span.className = 'custom-highlight';
-        range.surroundContents(span);
-        playAudioBeep('click');
-      } else {
-        alert("يرجى تحديد كلمة أو جملة بالماوس أولاً داخل النص.");
-      }
-    }
-
-    function explainWord(word, meaning) {
-      showModal(`معنى/ضد كلمة (${word})`, meaning, '🔍');
-    }
-
-    function showQuestionAnswer(q, a, icon) {
-      showModal(q, a, icon);
-    }
-
-    // Vocab Game Logic
-    let selectedWord = null;
-    let selectedOpp = null;
-    let matchesCount = 0;
-
-    const correctPairs = {
-      'كثيفاً': 'كثيفاً',
-      'مذعوراً': 'مذعوراً',
-      'إخماد': 'إخماد',
-      'مكروه': 'مكروه'
-    };
-
-    function selectVocab(type, id, key) {
-      if (type === 'word') {
-        document.querySelectorAll('.vocab-col:first-child .vocab-card').forEach(c => c.classList.remove('selected'));
-        const el = document.getElementById(`word-${id}`);
-        if (!el.classList.contains('matched')) {
-          el.classList.add('selected');
-          selectedWord = { id, key, el };
-        }
-      } else {
-        document.querySelectorAll('.vocab-col:last-child .vocab-card').forEach(c => c.classList.remove('selected'));
-        const el = document.getElementById(`opp-${id}`);
-        if (!el.classList.contains('matched')) {
-          el.classList.add('selected');
-          selectedOpp = { id, key, el };
-        }
-      }
-
-      if (selectedWord && selectedOpp) {
-        if (correctPairs[selectedWord.key] === selectedOpp.key) {
-          selectedWord.el.classList.remove('selected');
-          selectedOpp.el.classList.remove('selected');
-          selectedWord.el.classList.add('matched');
-          selectedOpp.el.classList.add('matched');
-          
-          playAudioBeep('success');
-          showModal("إجابة صحيحة ✅", `رائع جداً! أبدعت في توصيل المفردة بضدها الصحيح.`, "✅");
-          confetti({ particleCount: 30, spread: 50 });
-          matchesCount++;
-          if (matchesCount === 4) {
-            document.getElementById('gameStatus').innerText = "🎉 ممتاز! تم توصيل جميع الأضداد بنجاح!";
-          }
-        } else {
-          playAudioBeep('error');
-          showModal("إجابة خاطئة ❌", "حاول مرة أخرى واختر الضد المناسب للكلمة.", "❌");
-          setTimeout(() => {
-            selectedWord.el.classList.remove('selected');
-            selectedOpp.el.classList.remove('selected');
-          }, 400);
-        }
-        selectedWord = null;
-        selectedOpp = null;
-      }
-    }
-
-    function triggerCardAction(title, desc, icon) {
-      showModal(title, desc, icon);
-    }
-
-    // Toggle Answer Logic for Closure Slide
     function toggleAnswer(ansId) {
       const ansBox = document.getElementById(ansId);
-      if (ansBox.style.display === "block") {
-        ansBox.style.display = "none";
-      } else {
-        ansBox.style.display = "block";
-        playAudioBeep('success');
-      }
+      ansBox.style.display = ansBox.style.display === "block" ? "none" : "block";
+      playAudioBeep('success');
     }
 
-    // Winner Announcement with Student Names
     function calculateAndAnnounceWinner() {
       let maxScore = -1;
       let winningTeamName = null;
-
       teams.forEach(t => {
         const score = parseInt(document.getElementById(t.id).innerText);
-        if (score > maxScore) {
-          maxScore = score;
-          winningTeamName = t.name;
-        }
+        if (score > maxScore) { maxScore = score; winningTeamName = t.name; }
       });
-
-      const cleanTeamName = winningTeamName.replace(/^[^\w\sа-яآ-ي]+|[^\w\sа-яآ-ي]+$/gu, '').trim();
-      const members = window.appState.attendance.filter(s => s.group === cleanTeamName || s.group === winningTeamName);
-
       confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
       playAudioBeep('success');
-
-      let message = "";
-      if (maxScore > 0) {
-        let membersHtml = members.length > 0 
-          ? members.map(m => `<span style="display:inline-block; background:#f0fdfa; padding:4px 8px; border-radius:6px; margin:3px; font-size:13px; font-weight:700; border:1px solid #ccfbf1; color:var(--primary);">${m.fullName}</span>`).join('') 
-          : '<span style="color:#64748b; font-size:13px;">لايوجد طلاب مسجلين في هذه المجموعة عبر السحب والإفلات.</span>';
-
-        message = `
-          <div style="font-size:20px; font-weight:900; color:var(--primary); margin-bottom:8px;">🏆 الفائز بلقب درس اليوم:</div>
-          <div style="font-size:22px; font-weight:800; color:var(--secondary); margin-bottom:10px;">[ ${winningTeamName} ]</div>
-          <div style="font-size:15px; color:#335c67; margin-bottom:12px;">برصيد <b>(${maxScore})</b> نقطة!</div>
-          <hr style="border:0; border-top:1px dashed #ccfbf1; margin:10px 0;">
-          <div style="font-size:15px; font-weight:800; color:var(--primary); margin-bottom:6px;">👨‍🎓 أبطال المجموعة:</div>
-          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:4px; max-height:140px; overflow-y:auto; padding:4px;">${membersHtml}</div>
-        `;
-      } else {
-        message = "🏆 ألف مبروك لجميع المجموعات والأبطال المشاركين في درس اليوم! أبدعتم جميعاً.";
-      }
-
-      showModal("🎉 إعلان المجموعة الفائزة والأبطال!", message, "👑");
+      showModal("🎉 التتويج", `الفائز: [ ${winningTeamName} ] برصيد (${maxScore}) نقطة!`, "👑");
     }
+
+    function highlightSelection() {}
+    function playSelectedText() {}
+    function pauseAudio() {}
+    function resumeAudio() {}
+    function stopAudio() {}
+    function explainWord(w, m) { showModal(w, m, '🔍'); }
+    function showQuestionAnswer(q, a, i) { showModal(q, a, i); }
+    function selectVocab() {}
+    function triggerCardAction(t, d, i) { showModal(t, d, i); }
   </script>
 </body>
 </html>
