@@ -15,16 +15,19 @@
 
   <style>
     :root {
-      --primary: #1e3a8a;
-      --primary-light: #eff6ff;
-      --secondary: #0284c7;
-      --accent: #f59e0b;
-      --accent-hover: #d97706;
-      --success: #10b981;
-      --danger: #ef4444;
+      /* Palette inspired by the rich turquoise color image */
+      --primary: #0e5a6a;
+      --primary-light: #e6f6f8;
+      --secondary: #008b9b;
+      --secondary-light: #00a8c6;
+      --accent: #d97706;
+      --accent-hover: #b45309;
+      --success: #0d9488;
+      --danger: #e11d48;
       --civil-defense-yellow: #facc15;
-      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-      --card-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+      --card-shadow: 0 12px 30px rgba(14, 90, 106, 0.08);
+      --float-shadow: 0 10px 25px rgba(0, 139, 155, 0.15);
       --font-main: 'Tajawal', sans-serif;
       --font-read: 'Readex Pro', sans-serif;
     }
@@ -38,7 +41,7 @@
     body {
       font-family: var(--font-main);
       background: var(--bg-gradient);
-      color: #1e293b;
+      color: #1a2e35;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -50,7 +53,7 @@
       background: #ffffff;
       border-bottom: 4px solid var(--secondary);
       padding: 14px 28px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 15px rgba(0, 139, 155, 0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -84,8 +87,8 @@
     }
 
     .meta-cards-box {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
+      background: #f0fdfa;
+      border: 2px solid #ccfbf1;
       border-radius: 12px;
       padding: 8px 16px;
       display: flex;
@@ -102,7 +105,7 @@
     }
 
     .meta-item i {
-      color: var(--accent);
+      color: var(--secondary);
     }
 
     .meta-item strong {
@@ -117,20 +120,20 @@
       justify-content: space-between;
       gap: 8px;
       overflow-x: auto;
-      box-shadow: inset 0 -2px 0 #e2e8f0;
+      box-shadow: inset 0 -2px 0 #ccfbf1;
     }
 
     .tab-btn {
       flex: 1;
       min-width: 140px;
-      background: #f1f5f9;
-      border: none;
+      background: #f0fdfa;
+      border: 1px solid #ccfbf1;
       padding: 12px 14px;
       border-radius: 12px;
       font-family: var(--font-main);
       font-size: 15px;
       font-weight: 700;
-      color: #64748b;
+      color: #335c67;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
@@ -140,14 +143,15 @@
     }
 
     .tab-btn:hover {
-      background: #e2e8f0;
+      background: var(--primary-light);
       color: var(--primary);
     }
 
     .tab-btn.active {
       background: var(--primary);
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(14, 90, 106, 0.3);
       transform: translateY(-2px);
     }
 
@@ -202,8 +206,37 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 2px dashed #e2e8f0;
+      border-bottom: 2px dashed #99f6e4;
       padding-bottom: 8px;
+    }
+
+    /* Attendance Checklist Styles */
+    .attendance-list {
+      max-height: 160px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .student-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 6px 10px;
+      background: #f0fdfa;
+      border-radius: 8px;
+      cursor: grab;
+      border: 1px solid #ccfbf1;
+    }
+
+    .student-item.absent {
+      background: #ffe4e6;
+      color: #9f1239;
+      text-decoration: line-through;
+      opacity: 0.6;
     }
 
     /* Random Picker */
@@ -221,7 +254,7 @@
     }
 
     .selected-student-name {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--primary);
     }
@@ -243,22 +276,22 @@
     }
 
     .btn-primary {
-      background: var(--accent);
+      background: var(--secondary);
       color: #ffffff;
     }
 
     .btn-primary:hover {
-      background: var(--accent-hover);
+      background: var(--primary);
       transform: translateY(-1px);
     }
 
     .btn-secondary {
-      background: #e2e8f0;
-      color: #334155;
+      background: #e6f6f8;
+      color: var(--primary);
     }
 
     .btn-secondary:hover {
-      background: #cbd5e1;
+      background: #ccfbf1;
     }
 
     /* Scoreboard */
@@ -269,8 +302,8 @@
     }
 
     .team-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: #f0fdfa;
+      border: 1px solid #ccfbf1;
       border-radius: 12px;
       padding: 10px;
       text-align: center;
@@ -279,14 +312,14 @@
     .team-name {
       font-size: 13px;
       font-weight: 700;
-      color: #334155;
+      color: var(--primary);
       margin-bottom: 4px;
     }
 
     .team-score {
       font-size: 22px;
       font-weight: 900;
-      color: var(--primary);
+      color: var(--secondary);
     }
 
     .score-btns {
@@ -320,7 +353,7 @@
       color: var(--primary);
       text-align: center;
       margin: 8px 0;
-      background: #f1f5f9;
+      background: var(--primary-light);
       border-radius: 10px;
       padding: 6px;
     }
@@ -333,18 +366,19 @@
     }
 
     .btn-time {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
+      background: #f0fdfa;
+      border: 1px solid #ccfbf1;
       border-radius: 6px;
       padding: 6px 4px;
       font-size: 12px;
       font-weight: 700;
+      color: var(--primary);
       cursor: pointer;
     }
 
     .btn-time:hover {
-      background: var(--primary-light);
-      color: var(--primary);
+      background: var(--secondary);
+      color: #ffffff;
     }
 
     /* Main Content */
@@ -375,10 +409,28 @@
       color: var(--primary);
       margin-bottom: 18px;
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
       border-bottom: 3px solid var(--primary-light);
       padding-bottom: 10px;
+    }
+
+    .pane-main-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .strategy-badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--secondary);
     }
 
     .pane-title i {
@@ -429,12 +481,54 @@
       text-align: justify;
     }
 
-    .thanks-section {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px dashed rgba(255,255,255,0.2);
+    /* Floating / Semi-Floating Custom Boxes for Thanks */
+    .thanks-floating-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .floating-box {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px 20px;
+      box-shadow: var(--float-shadow);
+      border: 1px solid #ccfbf1;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .floating-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0, 139, 155, 0.2);
+    }
+
+    .floating-box.ministry {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border-color: #bbf7d0;
+      color: #166534;
+    }
+
+    .floating-box.administration {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e6f6f8 100%);
+      border-color: #99f6e4;
+      color: var(--primary);
+    }
+
+    .floating-box-title {
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .floating-box-text {
       font-size: 13.5px;
-      color: #f0fdf4;
+      font-weight: 600;
+      line-height: 1.6;
     }
 
     /* Rules */
@@ -446,7 +540,7 @@
     }
 
     .rule-card {
-      background: #f8fafc;
+      background: #f0fdfa;
       border-right: 4px solid var(--secondary);
       border-radius: 12px;
       padding: 14px;
@@ -471,7 +565,7 @@
     .rule-text {
       font-size: 14px;
       font-weight: 700;
-      color: #334155;
+      color: var(--primary);
     }
 
     .riddle-box {
@@ -519,7 +613,7 @@
     /* Video Player Box */
     .video-container-box {
       margin-top: 25px;
-      background: #0f172a;
+      background: #0d2830;
       border-radius: 16px;
       padding: 15px;
       text-align: center;
@@ -557,8 +651,8 @@
 
     /* Text Display Section */
     .text-display-box {
-      background: #fdfbf7;
-      border: 2px solid #f1f3f5;
+      background: #fcfefd;
+      border: 2px solid #ccfbf1;
       border-radius: 16px;
       padding: 24px;
       font-family: var(--font-read);
@@ -595,10 +689,10 @@
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      background: #f8fafc;
+      background: #f0fdfa;
       padding: 12px;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #ccfbf1;
       align-items: center;
     }
 
@@ -610,8 +704,8 @@
     }
 
     .q-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      background: #f0fdfa;
+      border: 1px solid #ccfbf1;
       border-radius: 14px;
       padding: 16px;
       display: flex;
@@ -641,13 +735,13 @@
 
     .vocab-card {
       background: #ffffff;
-      border: 2px solid #cbd5e1;
+      border: 2px solid #99f6e4;
       border-radius: 12px;
       padding: 14px;
       text-align: center;
       font-size: 20px;
       font-weight: 800;
-      color: #334155;
+      color: var(--primary);
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -664,8 +758,8 @@
 
     .vocab-card.matched {
       border-color: var(--success);
-      background: #ecfdf5;
-      color: #065f46;
+      background: #ccfbf1;
+      color: #0f766e;
       cursor: default;
     }
 
@@ -678,8 +772,8 @@
     }
 
     .interactive-card {
-      background: #f8fafc;
-      border: 2px solid #e2e8f0;
+      background: #f0fdfa;
+      border: 2px solid #ccfbf1;
       border-radius: 16px;
       padding: 20px;
       text-align: center;
@@ -691,7 +785,7 @@
 
     .interactive-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 20px rgba(0, 139, 155, 0.12);
       border-color: var(--secondary);
     }
 
@@ -710,7 +804,7 @@
 
     .interactive-card p {
       font-size: 14px;
-      color: #475569;
+      color: #335c67;
       line-height: 1.6;
     }
 
@@ -724,7 +818,7 @@
 
     .closure-card-item {
       background: #ffffff;
-      border: 2px solid #e2e8f0;
+      border: 2px solid #ccfbf1;
       border-radius: 16px;
       padding: 18px;
       text-align: center;
@@ -761,7 +855,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 23, 42, 0.7);
+      background: rgba(14, 42, 50, 0.7);
       display: none;
       align-items: center;
       justify-content: center;
@@ -773,7 +867,7 @@
     .modal-card {
       background: #ffffff;
       border-radius: 20px;
-      max-width: 550px;
+      max-width: 520px;
       width: 100%;
       padding: 28px;
       text-align: center;
@@ -783,7 +877,7 @@
     }
 
     .modal-civil-defense {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      background: linear-gradient(135deg, #0f2d35 0%, #081d22 100%);
       border: 4px solid var(--civil-defense-yellow);
       color: #ffffff;
     }
@@ -822,7 +916,7 @@
     /* Footer Styling */
     .footer {
       background: #ffffff;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid #ccfbf1;
       padding: 18px 24px;
       margin-top: auto;
     }
@@ -835,10 +929,10 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 15px;
-      background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+      background: linear-gradient(135deg, #f0fdfa 0%, #e6f6f8 100%);
       padding: 14px 24px;
       border-radius: 14px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #99f6e4;
     }
 
     .footer-right, .footer-left {
@@ -854,27 +948,17 @@
       gap: 15px;
     }
 
-    .footer-contact {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 16px;
-      font-weight: 800;
-      color: #0f172a;
-      direction: ltr;
-    }
-
     .whatsapp-btn {
       background-color: #25d366;
       color: #ffffff;
-      padding: 6px 14px;
-      border-radius: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      font-weight: 700;
+      justify-content: center;
+      font-size: 22px;
       box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
       transition: all 0.2s;
     }
@@ -973,18 +1057,31 @@
     <!-- Interactive Sidebar -->
     <aside class="sidebar">
 
-      <!-- Random Student Wheel Picker -->
+      <!-- Attendance & Drag & Drop Grouping -->
       <div class="widget-card">
         <div class="widget-title">
-          <span><i class="fa-solid fa-dice color-accent"></i> البطل المشارك</span>
-          <span style="font-size: 11px; color: #64748b;">(22 طالباً)</span>
+          <span><i class="fa-solid fa-clipboard-user color-accent"></i> التحضير وسحب الطلاب</span>
+          <button class="btn btn-secondary" style="width:auto; padding:4px 8px; font-size:11px;" onclick="confirmResetGroups()">إعادة ضبط (Reset)</button>
+        </div>
+        <div class="attendance-list" id="attendanceList"></div>
+      </div>
+
+      <!-- Random Student & Group Picker -->
+      <div class="widget-card">
+        <div class="widget-title">
+          <span><i class="fa-solid fa-dice color-accent"></i> الاختيار العشوائي</span>
         </div>
         <div class="selected-student-box">
           <div class="selected-student-name" id="studentDisplay">اضغط الاختيار</div>
         </div>
-        <button class="btn btn-primary" onclick="pickRandomStudent()">
-          <i class="fa-solid fa-shuffle"></i> اختيار اسم عشوائي
-        </button>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <button class="btn btn-primary" onclick="pickRandomStudent()">
+            <i class="fa-solid fa-shuffle"></i> اختيار طالب عشوائي
+          </button>
+          <button class="btn btn-secondary" onclick="pickRandomTeam()">
+            <i class="fa-solid fa-people-group"></i> اختيار مجموعة عشوائية 🎲
+          </button>
+        </div>
       </div>
 
       <!-- Scoreboard & Groups -->
@@ -993,37 +1090,41 @@
           <span><i class="fa-solid fa-trophy color-accent"></i> لوحة تعزيز المجموعات</span>
         </div>
         <div class="teams-grid">
-          <div class="team-card">
+          <div class="team-card" ondragover="allowDrop(event)" ondrop="dropStudent(event, 'صقور الوطن')">
             <div class="team-name">🦅 صقور الوطن</div>
             <div class="team-score" id="score1">0</div>
             <div class="score-btns">
               <button class="mini-btn add" onclick="addScore('score1', 1)">+</button>
               <button class="mini-btn" onclick="addScore('score1', -1)">-</button>
             </div>
+            <div class="group-members-list" id="group-صقور الوطن-list" style="margin-top:6px; font-size:11px; text-align:right;"></div>
           </div>
-          <div class="team-card">
+          <div class="team-card" ondragover="allowDrop(event)" ondrop="dropStudent(event, 'فرسان العرب')">
             <div class="team-name">🐎 فرسان العرب</div>
             <div class="team-score" id="score2">0</div>
             <div class="score-btns">
               <button class="mini-btn add" onclick="addScore('score2', 1)">+</button>
               <button class="mini-btn" onclick="addScore('score2', -1)">-</button>
             </div>
+            <div class="group-members-list" id="group-فرسان العرب-list" style="margin-top:6px; font-size:11px; text-align:right;"></div>
           </div>
-          <div class="team-card">
+          <div class="team-card" ondragover="allowDrop(event)" ondrop="dropStudent(event, 'أبطال القرآن')">
             <div class="team-name">📖 أبطال القرآن</div>
             <div class="team-score" id="score3">0</div>
             <div class="score-btns">
               <button class="mini-btn add" onclick="addScore('score3', 1)">+</button>
               <button class="mini-btn" onclick="addScore('score3', -1)">-</button>
             </div>
+            <div class="group-members-list" id="group-أبطال القرآن-list" style="margin-top:6px; font-size:11px; text-align:right;"></div>
           </div>
-          <div class="team-card">
+          <div class="team-card" ondragover="allowDrop(event)" ondrop="dropStudent(event, 'رواد القيم')">
             <div class="team-name">🌟 رواد القيم</div>
             <div class="team-score" id="score4">0</div>
             <div class="score-btns">
               <button class="mini-btn add" onclick="addScore('score4', 1)">+</button>
               <button class="mini-btn" onclick="addScore('score4', -1)">-</button>
             </div>
+            <div class="group-members-list" id="group-رواد القيم-list" style="margin-top:6px; font-size:11px; text-align:right;"></div>
           </div>
         </div>
       </div>
@@ -1059,13 +1160,15 @@
       <!-- STEP 1: Warm-Up Slide -->
       <section class="section-pane active" id="pane-0">
         <div class="pane-title">
-          <i class="fa-solid fa-sun"></i>
-          <span>التمهيد والتهيئه</span>
+          <div class="pane-main-title">
+            <i class="fa-solid fa-sun"></i>
+            <span>التمهيد والتهيئه</span>
+          </div>
+          <span class="strategy-badge">استراتيجية العصف الذهني والتهيئة الحفزية</span>
         </div>
 
         <!-- National Section Container -->
         <div class="national-container">
-          <!-- علم السعودية بحجم أكبر ومفصول عن صندوق الدعاء -->
           <img src="https://flagpedia.net/data/flags/w580/sa.png" alt="علم المملكة العربية السعودية" class="flag-img-large">
           
           <div class="national-header-box">
@@ -1073,10 +1176,19 @@
             <div class="prayers-text">
               اللهم احفظ وطننا الغالي المملكة العربية السعودية من كل سوء ومكروه ، واحفظ لنا قائدنا وإمامنا خادم الحرمين الشريفين الملك سلمان بن عبدالعزيز آل سعود حفظه الله .. وولي عهده الأمين صاحب السمو الملكي الأمير محمد بن سلمان بن عبدالعزيز آل سعود ,ايدهم بالنصر والتمكين وأعزهم بالإسلام .. وأعز بهم الإسلام والمسلمين.
             </div>
-            <div class="thanks-section">
-              <p><strong>نشكر وزارة التعليم</strong> على اهتمامها المستمر بالطالب والمعلم لنهضة الوطن ورفعة أجياله.</p>
-              <p style="margin-top: 4px;"><strong>شكر خاص:</strong> لمديرة المدرسة / <strong>أ. هناء المعاوي</strong> ووكيلتها / <strong>أ. أمل المعاوي</strong> على دعمهم واهتمامهم الدائم بكل ما ييسر العملية التعليمية.</p>
+
+            <!-- Floating Boxes for Thanks -->
+            <div class="thanks-floating-grid">
+              <div class="floating-box ministry">
+                <div class="floating-box-title"><i class="fa-solid fa-award"></i> شكر وتقدير</div>
+                <div class="floating-box-text">نشكر <strong>وزارة التعليم</strong> على جهودها المستمرة في تطوير مسيرة التعليم وخدمة أبنائنا الطلاب.</div>
+              </div>
+              <div class="floating-box administration">
+                <div class="floating-box-title"><i class="fa-solid fa-school-flag"></i> القيادة المدرسية</div>
+                <div class="floating-box-text">شكر خاص لمديرة المدرسة / <strong>أ. هناء المعاوي</strong> ووكيلتها / <strong>أ. أمل المعاوي</strong> على دعمهم المستمر.</div>
+              </div>
             </div>
+
           </div>
         </div>
 
@@ -1118,8 +1230,11 @@
       <!-- STEP 2: Text Reading Slide -->
       <section class="section-pane" id="pane-1">
         <div class="pane-title">
-          <i class="fa-solid fa-book-open-reader"></i>
-          <span>نص الدرس: الْجَارُ الصَّغِيرُ</span>
+          <div class="pane-main-title">
+            <i class="fa-solid fa-book-open-reader"></i>
+            <span>نص الدرس: الْجَارُ الصَّغِيرُ</span>
+          </div>
+          <span class="strategy-badge">استراتيجية القراءة الجهرية والنمذجة الصوتية</span>
         </div>
 
         <div class="text-display-box" id="lessonText">
@@ -1170,8 +1285,11 @@
       <!-- STEP 3: Comprehension Questions Slide -->
       <section class="section-pane" id="pane-2">
         <div class="pane-title">
-          <i class="fa-solid fa-circle-question"></i>
-          <span>أُجِيبُ: الأسئلة الشفهية والفهم القرائي</span>
+          <div class="pane-main-title">
+            <i class="fa-solid fa-circle-question"></i>
+            <span>أُجِيبُ: الأسئلة الشفهية والفهم القرائي</span>
+          </div>
+          <span class="strategy-badge">استراتيجية الحوار والمناقشة والاستنباط</span>
         </div>
 
         <div class="questions-list">
@@ -1215,8 +1333,11 @@
       <!-- STEP 4: Vocabulary Game Slide -->
       <section class="section-pane" id="pane-3">
         <div class="pane-title">
-          <i class="fa-solid fa-gamepad"></i>
-          <span>أُنَمِّي لُغَتِي: لعبة التوصيل بالضد</span>
+          <div class="pane-main-title">
+            <i class="fa-solid fa-gamepad"></i>
+            <span>أُنَمِّي لُغَتِي: لعبة التوصيل بالضد</span>
+          </div>
+          <span class="strategy-badge">استراتيجية التعلم النشط والاكتشاف</span>
         </div>
 
         <p style="font-size:15px; font-weight:700; color:#475569;">اضغط على الكلمة في العمود الأول ثم اضغط على ضِدِّهَا الصحيح في العمود الثاني:</p>
@@ -1243,8 +1364,11 @@
       <!-- STEP 5: Interactive Integration Slide -->
       <section class="section-pane" id="pane-4">
         <div class="pane-title">
-          <i class="fa-solid fa-hand-holding-heart"></i>
-          <span>التكامل والتطبيق التفاعلي</span>
+          <div class="pane-main-title">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+            <span>التكامل والتطبيق التفاعلي</span>
+          </div>
+          <span class="strategy-badge">استراتيجية التعلم التبادلي والربط بالقيم</span>
         </div>
 
         <div class="integration-grid">
@@ -1271,8 +1395,11 @@
       <!-- STEP 6: Closure & Exit Ticket Slide -->
       <section class="section-pane" id="pane-5">
         <div class="pane-title">
-          <i class="fa-solid fa-flag-checkered"></i>
-          <span>غلق الدرس وتذكرة الخروج (Exit Ticket)</span>
+          <div class="pane-main-title">
+            <i class="fa-solid fa-flag-checkered"></i>
+            <span>غلق الدرس وتذكرة الخروج (Exit Ticket)</span>
+          </div>
+          <span class="strategy-badge">استراتيجية التقويم الختامي وتذكرة الخروج</span>
         </div>
 
         <p style="font-size:16px; font-weight:700; color:#334155;">بطاقات التحدي الختامية (فكر أولاً ثم انقر للتحقق من إجابتك):</p>
@@ -1312,7 +1439,7 @@
         </div>
 
         <!-- Exit Ticket Button -->
-        <div style="background:#eef2ff; border:2px solid #c7d2fe; border-radius:16px; padding:20px; text-align:center; margin-top:20px;">
+        <div style="background:var(--primary-light); border:2px solid #ccfbf1; border-radius:16px; padding:20px; text-align:center; margin-top:20px;">
           <h4 style="color:var(--primary); margin-bottom:12px;"><i class="fa-solid fa-trophy"></i> حاسبة النتائج وتتويج الأبطال:</h4>
           <button class="btn btn-primary" style="max-width:280px; margin:0 auto; font-size:16px; padding:12px;" onclick="calculateAndAnnounceWinner()">
             <i class="fa-solid fa-crown"></i> إعلان المجموعة الفائزة!
@@ -1332,12 +1459,9 @@
       </div>
       <div class="footer-left">
         <span>تصميم وبرمجة وتنفيذ : أ. يوسف القرني</span>
-        <div class="footer-contact">
-          <a href="https://wa.me/966565588869" target="_blank" class="whatsapp-btn">
-            <i class="fa-brands fa-whatsapp"></i> تواصل واتساب
-          </a>
-          <span>0565588869</span>
-        </div>
+        <a href="https://wa.me/966565588869" target="_blank" class="whatsapp-btn" title="تواصل واتساب">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
       </div>
     </div>
   </footer>
@@ -1348,13 +1472,26 @@
       <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
       <div id="modalIcon" style="font-size: 54px; margin-bottom: 10px;">💡</div>
       <h2 id="modalTitle" style="color:var(--primary); margin-bottom:12px; font-size:24px;">عنوان الرسالة</h2>
-      <p id="modalBody" style="font-size:20px; font-weight:700; color:#334155; line-height:1.6;">محتوى الرسالة المنبثقة...</p>
+      <div id="modalBody" style="font-size:18px; font-weight:700; color:#1a2e35; line-height:1.6; max-height:250px; overflow-y:auto;">محتوى الرسالة المنبثقة...</div>
+    </div>
+  </div>
+
+  <!-- Custom Confirmation Modal for Reset -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-card" style="max-width: 420px;">
+      <div style="font-size: 48px; color: var(--accent); margin-bottom: 10px;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      <h2 style="color: var(--primary); margin-bottom: 10px; font-size: 22px;">تأكيد إعادة الضبط</h2>
+      <p style="font-size: 16px; font-weight: 700; color: #335c67; margin-bottom: 20px; line-height: 1.6;">هل أنت متأكد من رغبتك في إعادة ضبط وتفريغ جميع المجموعات وسجل السحب؟</p>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-secondary" onclick="closeConfirmModal()">إلغاء</button>
+        <button class="btn btn-primary" onclick="executeResetGroups()" style="background: var(--danger);">تأكيد إعادة الضبط</button>
+      </div>
     </div>
   </div>
 
   <script>
     // 22 Students list
-    const students = [
+    const rawStudents = [
       "حاتم فايز الشهراني", "رائد سالم الحارثي", "سعد سحمي السبيعي", "سعيد أحمد القحطاني",
       "سلطان عبد الرحمن المعاوي", "سلطان عبود الأكلبي", "سلمان عبد الله الحارثي", "شبيب عبد الله البيشي",
       "طلال سلطان القحطاني", "عبد العزيز حسن البيشي", "عبد العزيز عبد الرحمن الشهراني", "عبد الكريم سعيد الشهراني",
@@ -1362,6 +1499,98 @@
       "مبارك خالد", "محمد إسماعيل الحارثي", "محمد عائض القحطاني", "محمد عبد الله الشهراني",
       "ناصر عبود الأكلبي", "ياسر رائد الجابري"
     ];
+
+    let state = {
+      attendance: JSON.parse(localStorage.getItem('student_attendance')) || rawStudents.map(fullName => {
+        const parts = fullName.split(" ");
+        return { fullName, firstName: parts[0], present: true, group: null };
+      }),
+      drawnTeams: JSON.parse(localStorage.getItem('drawn_teams')) || []
+    };
+
+    const teamNamesList = ['صقور الوطن', 'فرسان العرب', 'أبطال القرآن', 'رواد القيم'];
+    const teamFullNamesMap = {
+      'صقور الوطن': '🦅 صقور الوطن',
+      'فرسان العرب': '🐎 فرسان العرب',
+      'أبطال القرآن': '📖 أبطال القرآن',
+      'رواد القيم': '🌟 رواد القيم'
+    };
+
+    function saveState() {
+      localStorage.setItem('student_attendance', JSON.stringify(state.attendance));
+      localStorage.setItem('drawn_teams', JSON.stringify(state.drawnTeams));
+    }
+
+    // Render Attendance Checklist & Groups
+    function renderAttendance() {
+      const list = document.getElementById("attendanceList");
+      list.innerHTML = "";
+      state.attendance.forEach((st, idx) => {
+        const item = document.createElement("div");
+        item.className = `student-item ${st.present ? '' : 'absent'}`;
+        item.draggable = st.present && !st.group;
+        item.ondragstart = (e) => e.dataTransfer.setData("text/plain", idx);
+        item.innerHTML = `
+          <span>${st.fullName} ${st.group ? '('+st.group+')' : ''}</span>
+          <button style="border:none; background:none; cursor:pointer;" onclick="toggleAttendance(${idx})">
+            ${st.present ? '✅' : '❌'}
+          </button>
+        `;
+        list.appendChild(item);
+      });
+      renderGroups();
+    }
+    renderAttendance();
+
+    function toggleAttendance(idx) {
+      state.attendance[idx].present = !state.attendance[idx].present;
+      if(!state.attendance[idx].present) {
+        state.attendance[idx].group = null;
+      }
+      saveState();
+      renderAttendance();
+      playAudioBeep('error');
+    }
+
+    // Drag & Drop
+    function allowDrop(ev) { ev.preventDefault(); }
+    function dropStudent(ev, groupName) {
+      ev.preventDefault();
+      const idx = ev.dataTransfer.getData("text/plain");
+      if(idx !== "") {
+        state.attendance[idx].group = groupName;
+        saveState();
+        renderAttendance();
+        playAudioBeep('success');
+      }
+    }
+
+    function renderGroups() {
+      teamNamesList.forEach(g => {
+        const container = document.getElementById(`group-${g}-list`);
+        if(container) {
+          const members = state.attendance.filter(s => s.group === g);
+          container.innerHTML = members.map(m => `<span style="display:inline-block; background:white; padding:2px 6px; border-radius:4px; margin:2px; font-size:10px; font-weight:bold; border:1px solid #ccfbf1; color:var(--primary);">${m.fullName}</span>`).join("");
+        }
+      });
+    }
+
+    function confirmResetGroups() {
+      document.getElementById("confirmModal").style.display = "flex";
+    }
+
+    function closeConfirmModal() {
+      document.getElementById("confirmModal").style.display = "none";
+    }
+
+    function executeResetGroups() {
+      state.attendance.forEach(s => s.group = null);
+      state.drawnTeams = [];
+      saveState();
+      renderAttendance();
+      closeConfirmModal();
+      playAudioBeep('siren');
+    }
 
     // Teams info
     const teams = [
@@ -1427,15 +1656,15 @@
         card.className = 'modal-card modal-civil-defense';
         document.getElementById('modalTitle').style.color = 'var(--civil-defense-yellow)';
         bodyEl.className = 'color-change-text';
-        bodyEl.innerText = body;
+        bodyEl.innerHTML = body;
       } else {
         card.className = 'modal-card';
         document.getElementById('modalTitle').style.color = 'var(--primary)';
         bodyEl.className = '';
-        bodyEl.style.fontSize = '20px';
+        bodyEl.style.fontSize = '18px';
         bodyEl.style.fontWeight = '700';
-        bodyEl.style.color = '#334155';
-        bodyEl.innerText = body;
+        bodyEl.style.color = '#1a2e35';
+        bodyEl.innerHTML = body;
       }
 
       overlay.style.display = 'flex';
@@ -1465,20 +1694,65 @@
     }
 
     // Student Random Picker
+    let isPicking = false;
     function pickRandomStudent() {
+      const presents = state.attendance.filter(s => s.present);
+      if (presents.length === 0) {
+        showModal("⚠️ تنبيه", "جميع الطلاب غائبون!");
+        return;
+      }
+      if (isPicking) return;
+      isPicking = true;
+
       const display = document.getElementById('studentDisplay');
       let counter = 0;
       const interval = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * students.length);
-        display.innerText = students[randomIndex];
+        const tempPick = presents[Math.floor(Math.random() * presents.length)];
+        display.innerText = tempPick.fullName;
         playAudioBeep('click');
         counter++;
         if (counter > 14) {
           clearInterval(interval);
+          const finalPick = presents[Math.floor(Math.random() * presents.length)];
+          display.innerText = finalPick.fullName;
+          isPicking = false;
           playAudioBeep('success');
           confetti({ particleCount: 35, spread: 60, origin: { y: 0.8 } });
         }
       }, 70);
+    }
+
+    // Random Team Picker without repetition until all 4 are selected
+    function pickRandomTeam() {
+      let availableTeams = teamNamesList.filter(t => !state.drawnTeams.includes(t));
+      
+      if (availableTeams.length === 0) {
+        state.drawnTeams = [];
+        availableTeams = [...teamNamesList];
+        showModal("🔄 دورة جديدة", "تم الانتهاء من جميع المجموعات الأربع! نبدأ دورة سحب جديدة الآن.", "🔄");
+      }
+
+      const randomTeamKey = availableTeams[Math.floor(Math.random() * availableTeams.length)];
+      state.drawnTeams.push(randomTeamKey);
+      saveState();
+
+      const teamFullName = teamFullNamesMap[randomTeamKey];
+      const members = state.attendance.filter(s => s.group === randomTeamKey);
+      
+      let membersHtml = members.length > 0 
+        ? members.map(m => `<span style="display:inline-block; background:#f0fdfa; padding:4px 8px; border-radius:6px; margin:3px; font-size:13px; font-weight:700; border:1px solid #ccfbf1; color:var(--primary);">${m.fullName}</span>`).join('') 
+        : '<span style="color:#64748b; font-size:13px;">لايوجد طلاب مسجلين في هذه المجموعة حالياً.</span>';
+
+      let message = `
+        <div style="font-size:22px; font-weight:900; color:var(--secondary); margin-bottom:12px;">✨ [ ${teamFullName} ] ✨</div>
+        <hr style="border:0; border-top:1px dashed #ccfbf1; margin:10px 0;">
+        <div style="font-size:15px; font-weight:800; color:var(--primary); margin-bottom:8px;">👨‍🎓 أعضاء المجموعة:</div>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:4px; max-height:150px; overflow-y:auto; padding:4px;">${membersHtml}</div>
+        <div style="margin-top:12px; font-size:12px; color:#335c67;">المجموعات المتبقية في هذه الدورة: (${teamNamesList.length - state.drawnTeams.length}) من ${teamNamesList.length}</div>
+      `;
+
+      showModal("🎲 اختيار مجموعة عشوائية", message, "👥");
+      confetti({ particleCount: 50, spread: 70, origin: { y: 0.7 } });
     }
 
     // Scoreboard
@@ -1675,30 +1949,44 @@
       }
     }
 
-    // Winner Announcement
+    // Winner Announcement with Student Names
     function calculateAndAnnounceWinner() {
       let maxScore = -1;
-      let winningTeam = null;
+      let winningTeamName = null;
 
       teams.forEach(t => {
         const score = parseInt(document.getElementById(t.id).innerText);
         if (score > maxScore) {
           maxScore = score;
-          winningTeam = t.name;
+          winningTeamName = t.name;
         }
       });
+
+      const cleanTeamName = winningTeamName.replace(/^[^\w\sа-яآ-ي]+|[^\w\sа-яآ-ي]+$/gu, '').trim();
+      const members = state.attendance.filter(s => s.group === cleanTeamName || s.group === winningTeamName);
 
       confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
       playAudioBeep('success');
 
       let message = "";
       if (maxScore > 0) {
-        message = `🏆 الفائز بلقب درس اليوم هي مجموعة:\n\n✨ [ ${winningTeam} ] ✨\n\nبرصيد (${maxScore}) نقطة!\n\nألف مبروك لجميع المجموعات والأبطال المشاركين!`;
+        let membersHtml = members.length > 0 
+          ? members.map(m => `<span style="display:inline-block; background:#f0fdfa; padding:4px 8px; border-radius:6px; margin:3px; font-size:13px; font-weight:700; border:1px solid #ccfbf1; color:var(--primary);">${m.fullName}</span>`).join('') 
+          : '<span style="color:#64748b; font-size:13px;">لايوجد طلاب مسجلين في هذه المجموعة عبر السحب والإفلات.</span>';
+
+        message = `
+          <div style="font-size:20px; font-weight:900; color:var(--primary); margin-bottom:8px;">🏆 الفائز بلقب درس اليوم:</div>
+          <div style="font-size:22px; font-weight:800; color:var(--secondary); margin-bottom:10px;">[ ${winningTeamName} ]</div>
+          <div style="font-size:15px; color:#335c67; margin-bottom:12px;">برصيد <b>(${maxScore})</b> نقطة!</div>
+          <hr style="border:0; border-top:1px dashed #ccfbf1; margin:10px 0;">
+          <div style="font-size:15px; font-weight:800; color:var(--primary); margin-bottom:6px;">👨‍🎓 أبطال المجموعة:</div>
+          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:4px; max-height:140px; overflow-y:auto; padding:4px;">${membersHtml}</div>
+        `;
       } else {
         message = "🏆 ألف مبروك لجميع المجموعات والأبطال المشاركين في درس اليوم! أبدعتم جميعاً.";
       }
 
-      showModal("🎉 إعلان المجموعة الفائزة!", message, "👑");
+      showModal("🎉 إعلان المجموعة الفائزة والأبطال!", message, "👑");
     }
   </script>
 </body>
