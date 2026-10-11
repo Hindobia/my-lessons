@@ -114,8 +114,6 @@
     .attendance-list { max-height: 160px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
     .student-item { display: flex; align-items: center; justify-content: space-between; font-size: 13px; padding: 6px 10px; background: #f0fdfa; border-radius: 8px; cursor: grab; border: 1px solid #ccfbf1; }
     .student-item.absent { background: #ffe4e6; color: #9f1239; text-decoration: line-through; opacity: 0.6; }
-    .selected-student-box { background: var(--primary-light); border: 2px dashed var(--secondary); border-radius: 12px; padding: 14px; margin-bottom: 12px; min-height: 65px; display: flex; align-items: center; justify-content: center; text-align: center; }
-    .selected-student-name { font-size: 17px; font-weight: 800; color: var(--primary); }
     .btn { width: 100%; padding: 10px 16px; border: none; border-radius: 10px; font-family: var(--font-main); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
     .btn-primary { background: var(--secondary); color: #ffffff; }
     .btn-primary:hover { background: var(--primary); transform: translateY(-1px); }
@@ -176,8 +174,9 @@
     .vocab-col { display: flex; flex-direction: column; gap: 12px; }
     .vocab-card { background: #ffffff; border: 2px solid #99f6e4; border-radius: 12px; padding: 14px; text-align: center; font-size: 20px; font-weight: 800; color: var(--primary); cursor: pointer; transition: all 0.2s; }
     .vocab-card:hover { border-color: var(--secondary); transform: scale(1.02); }
-    .vocab-card.selected { border-color: var(--accent); background: #fefce8; }
+    .vocab-card.selected { border-color: var(--accent); background: #fefce8; transform: scale(1.03); }
     .vocab-card.matched { border-color: var(--success); background: #ccfbf1; color: #0f766e; cursor: default; }
+    .vocab-card.error-anim { border-color: var(--danger); background: #ffe4e6; color: #9f1239; animation: shakeError 0.4s ease-in-out; }
     .integration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 15px; }
     .interactive-card { background: #f0fdfa; border: 2px solid #ccfbf1; border-radius: 16px; padding: 20px; text-align: center; transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; }
     .interactive-card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0, 139, 155, 0.12); border-color: var(--secondary); }
@@ -310,12 +309,9 @@
         <div class="widget-title">
           <span><i class="fa-solid fa-dice color-accent"></i> الاختيار العشوائي</span>
         </div>
-        <div class="selected-student-box">
-          <div class="selected-student-name" id="studentDisplay">اضغط الاختيار</div>
-        </div>
         <div style="display:flex; flex-direction:column; gap:8px;">
           <button class="btn btn-primary" onclick="pickRandomStudent()">
-            <i class="fa-solid fa-shuffle"></i> اختيار طالب عشوائي
+            <i class="fa-solid fa-shuffle"></i> اختيار طالب عشوائي 🌟
           </button>
           <button class="btn btn-secondary" onclick="pickRandomTeam()">
             <i class="fa-solid fa-people-group"></i> اختيار مجموعة عشوائية 🎲
@@ -619,16 +615,16 @@
 
         <div class="vocab-game-grid">
           <div class="vocab-col">
-            <div class="vocab-card" id="word-1" onclick="selectVocab('word', 1, 'كثيفاً')">كَثِيفًا</div>
-            <div class="vocab-card" id="word-2" onclick="selectVocab('word', 2, 'مذعوراً')">مَذْعُورًا</div>
-            <div class="vocab-card" id="word-3" onclick="selectVocab('word', 3, 'إخماد')">إِخْمَادُ</div>
-            <div class="vocab-card" id="word-4" onclick="selectVocab('word', 4, 'مكروه')">مَكْرُوهٌ</div>
+            <div class="vocab-card" id="word-1" onclick="selectVocab('word', 1, 'كثيفاً', 3)">كَثِيفًا</div>
+            <div class="vocab-card" id="word-2" onclick="selectVocab('word', 2, 'مذعوراً', 1)">مَذْعُورًا</div>
+            <div class="vocab-card" id="word-3" onclick="selectVocab('word', 3, 'إخماد', 2)">إِخْمَادُ</div>
+            <div class="vocab-card" id="word-4" onclick="selectVocab('word', 4, 'مكروه', 4)">مَكْرُوهٌ</div>
           </div>
           <div class="vocab-col">
-            <div class="vocab-card" id="opp-1" onclick="selectVocab('opp', 1, 'مذعوراً')">مُطْمَئِنًّا</div>
-            <div class="vocab-card" id="opp-2" onclick="selectVocab('opp', 2, 'إخماد')">إِشْعَالُ</div>
-            <div class="vocab-card" id="opp-3" onclick="selectVocab('opp', 3, 'كثيفاً')">قَلِيلاً</div>
-            <div class="vocab-card" id="opp-4" onclick="selectVocab('opp', 4, 'مكروه')">خَيْرٌ</div>
+            <div class="vocab-card" id="opp-1" onclick="selectVocab('opp', 1, 'مذعوراً', 2)">مُطْمَئِنًّا</div>
+            <div class="vocab-card" id="opp-2" onclick="selectVocab('opp', 2, 'إخماد', 3)">إِشْعَالُ</div>
+            <div class="vocab-card" id="opp-3" onclick="selectVocab('opp', 3, 'كثيفاً', 1)">قَلِيلاً</div>
+            <div class="vocab-card" id="opp-4" onclick="selectVocab('opp', 4, 'مكروه', 4)">خَيْرٌ</div>
           </div>
         </div>
 
@@ -718,7 +714,6 @@
             <p>تقدير جهود رجال الإطفاء والدفاع المدني في خدمة الوطن.</p>
           </div>
 
-          <!-- الربط بالمواد الدراسية الأخرى المطلوبة -->
           <div class="interactive-card" onclick="triggerCardAction('الربط بمادة العلوم 🔬', 'الدخان هو مادة غازية تنتج عن الاحتراق، ويجب تجنب استنشاقه بالابتعاد بسرعة واستخدام قطعة قماش مبللة.', '🧪')">
             <i class="fa-solid fa-flask text-teal-600"></i>
             <h3>الربط بمادة العلوم</h3>
@@ -1011,9 +1006,10 @@
       const presents = window.appState.attendance.filter(s => s.present);
       if (presents.length === 0) { showModal("⚠️ تنبيه", "جميع الطلاب غائبون!"); return; }
       const finalPick = presents[Math.floor(Math.random() * presents.length)];
-      document.getElementById('studentDisplay').innerText = finalPick.fullName;
+      
+      showModal("🌟 الطالب البطل المختصر", `<div style="font-size: 26px; font-weight: 900; color: var(--primary); padding: 10px;">${finalPick.fullName}</div>`, "👑");
       playAudioBeep('success');
-      confetti({ particleCount: 35, spread: 60, origin: { y: 0.8 } });
+      confetti({ particleCount: 50, spread: 70, origin: { y: 0.7 } });
     }
 
     function pickRandomTeam() {
@@ -1106,14 +1102,115 @@
       showModal("🎉 التتويج", `الفائز: [ ${winningTeamName} ] برصيد (${maxScore}) نقطة!`, "👑");
     }
 
-    function highlightSelection() {}
-    function playSelectedText() {}
-    function pauseAudio() {}
-    function resumeAudio() {}
-    function stopAudio() {}
+    // تفاعل لعبة "أنمي لغتي" (الأضداد) المُحدّثة
+    let selectedVocabType = null;
+    let selectedVocabId = null;
+    let selectedVocabPair = null;
+
+    function selectVocab(type, id, val, pairId) {
+      const el = document.getElementById(`${type}-${id}`);
+      if (el.classList.contains('matched')) return;
+
+      if (!selectedVocabType) {
+        selectedVocabType = type;
+        selectedVocabId = id;
+        selectedVocabPair = pairId;
+        document.querySelectorAll('.vocab-card').forEach(c => c.classList.remove('selected'));
+        el.classList.add('selected');
+        playAudioBeep('click');
+      } else {
+        if (selectedVocabType === type) {
+          selectedVocabType = type;
+          selectedVocabId = id;
+          selectedVocabPair = pairId;
+          document.querySelectorAll('.vocab-card').forEach(c => c.classList.remove('selected'));
+          el.classList.add('selected');
+          playAudioBeep('click');
+        } else {
+          // التحقق من المطابقة
+          const firstEl = document.getElementById(`${selectedVocabType}-${selectedVocabId}`);
+          if (selectedVocabPair === id) {
+            // مطابقة صحيحة
+            firstEl.classList.remove('selected');
+            firstEl.classList.add('matched');
+            el.classList.add('matched');
+            playAudioBeep('success');
+            document.getElementById('gameStatus').innerText = "أحسنت! إجابة صحيحة 🌟";
+            setTimeout(() => { document.getElementById('gameStatus').innerText = ""; }, 2000);
+            
+            selectedVocabType = null;
+            selectedVocabId = null;
+            selectedVocabPair = null;
+          } else {
+            // خطأ
+            firstEl.classList.remove('selected');
+            firstEl.classList.add('error-anim');
+            el.classList.add('error-anim');
+            playAudioBeep('error');
+            document.getElementById('gameStatus').innerText = "حاول مرة أخرى يابطل! ❌";
+
+            setTimeout(() => {
+              firstEl.classList.remove('error-anim');
+              el.classList.remove('error-anim');
+              document.getElementById('gameStatus').innerText = "";
+            }, 600);
+
+            selectedVocabType = null;
+            selectedVocabId = null;
+            selectedVocabPair = null;
+          }
+        }
+      }
+    }
+
+    // وظائف النمذجة الصوتية وإبراز النص (SpeechSynthesis & Selection)
+    function highlightSelection() {
+      const selection = window.getSelection();
+      if (!selection.rangeCount) return;
+      const range = selection.getRangeAt(0);
+      const span = document.createElement('span');
+      span.className = 'custom-highlight';
+      span.appendChild(range.extractContents());
+      range.insertNode(span);
+      selection.removeAllRanges();
+      playAudioBeep('success');
+    }
+
+    function playSelectedText() {
+      const selection = window.getSelection().toString().trim();
+      const textToRead = selection || document.getElementById('lessonText').innerText;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(textToRead);
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+        playAudioBeep('success');
+      } else {
+        alert('متصفحك لا يدعم خاصية القراءة الصوتية.');
+      }
+    }
+
+    function pauseAudio() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.pause();
+      }
+    }
+
+    function resumeAudio() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.resume();
+      }
+    }
+
+    function stopAudio() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
     function explainWord(w, m) { showModal(w, m, '🔍'); }
     function showQuestionAnswer(q, a, i) { showModal(q, a, i); }
-    function selectVocab() {}
     function triggerCardAction(t, d, i) { showModal(t, d, i); }
   </script>
 
@@ -1223,7 +1320,6 @@
         if(lettersContainer) {
             lettersContainer.innerHTML = '';
             const randomLetters = shuffleOptions();
-            randomLetters.force = true;
             randomLetters.forEach(letter => {
                 const btn = document.createElement('button');
                 btn.className = "w-20 h-20 bg-gradient-to-tr from-white via-sky-50 to-sky-100 border-3 border-sky-300 rounded-3xl shadow-md text-3xl font-black text-sky-900 flex items-center justify-center hover:scale-110 hover:border-amber-400 transition-all transform active:scale-90 cursor-pointer shadow-amber-100";
