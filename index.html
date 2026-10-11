@@ -212,6 +212,16 @@
     @keyframes flyUp { 0% { transform: translateY(120px) scale(0.6); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
     @keyframes shakeError { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
     .shake-box { animation: shakeError 0.45s ease-in-out; }
+
+    /* تنسيق كروت أهداف الدرس والتوقعات من الطالب */
+    .goals-section-box { background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%); border: 2px solid #99f6e4; border-radius: 18px; padding: 20px; margin-top: 25px; box-shadow: 0 4px 15px rgba(0, 139, 155, 0.06); }
+    .goals-header { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 16px; border-bottom: 2px dashed #ccfbf1; padding-bottom: 8px; }
+    .goals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+    .goal-card { background: #ffffff; border: 1.5px solid #ccfbf1; border-radius: 14px; padding: 14px; display: flex; align-items: flex-start; gap: 12px; transition: transform 0.2s ease; }
+    .goal-card:hover { transform: translateY(-2px); border-color: var(--secondary); }
+    .goal-icon-badge { width: 42px; height: 42px; min-width: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #ffffff; }
+    .goal-text-title { font-size: 14px; font-weight: 800; color: var(--primary); margin-bottom: 3px; }
+    .goal-text-desc { font-size: 12.5px; font-weight: 600; color: #475569; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -443,6 +453,67 @@
           </button>
         </div>
 
+        <!-- أهداف الدرس وتوضيح ما يتوقع من الطالب بنهاية الدرس (على شكل أيقونات) -->
+        <div class="goals-section-box">
+          <div class="goals-header">
+            <i class="fa-solid fa-bullseye text-amber-600"></i>
+            <span>أهداف الدرس ونواتج التعلم المتوقعة</span>
+          </div>
+
+          <div class="goals-grid">
+            <!-- هدف 1 -->
+            <div class="goal-card">
+              <div class="goal-icon-badge" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
+                <i class="fa-solid fa-book-open"></i>
+              </div>
+              <div>
+                <div class="goal-text-title">القراءة الجهرية</div>
+                <div class="goal-text-desc">أن يقرأ الطالب نص "الجار الصغير" قراءة صحيحة وممثلة للمعنى.</div>
+              </div>
+            </div>
+
+            <!-- هدف 2 -->
+            <div class="goal-card">
+              <div class="goal-icon-badge" style="background: linear-gradient(135deg, #0d9488, #0f766e);">
+                <i class="fa-solid fa-brain"></i>
+              </div>
+              <div>
+                <div class="goal-text-title">الفهم الاستيعابي</div>
+                <div class="goal-text-desc">أن يجيب الطالب عن الأسئلة الشفهية ويستنتج القيم الإيجابية بالقصة.</div>
+              </div>
+            </div>
+
+            <!-- هدف 3 -->
+            <div class="goal-card">
+              <div class="goal-icon-badge" style="background: linear-gradient(135deg, #d97706, #b45309);">
+                <i class="fa-solid fa-spell-check"></i>
+              </div>
+              <div>
+                <div class="goal-text-title">تنمية الثروة اللغوية</div>
+                <div class="goal-text-desc">أن يستخرج الطالب أضداد المفردات والمعاني الجديدة في الدرس.</div>
+              </div>
+            </div>
+
+            <!-- هدف 4 -->
+            <div class="goal-card">
+              <div class="goal-icon-badge" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">
+                <i class="fa-solid fa-egg"></i>
+              </div>
+              <div>
+                <div class="goal-text-title">التطبيق والتأثيل</div>
+                <div class="goal-text-desc">أن يكتشف الطالب حروف المد (ا - و - ي) عبر استراتيجية البيضة.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- توضيح ما يتوقع من الطالب -->
+          <div style="margin-top: 15px; padding-top: 12px; border-top: 1px dashed #99f6e4; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <span style="font-size: 13.5px; font-weight: 800; color: var(--primary);"><i class="fa-solid fa-circle-check text-emerald-600"></i> يتوقع من الطالب بنهاية الدرس:</span>
+            <span style="font-size: 12.5px; font-weight: 700; background: #ffffff; padding: 4px 10px; border-radius: 20px; border: 1px solid #ccfbf1; color: #335c67;"><i class="fa-solid fa-star text-amber-500"></i> معرفة رقم طوارئ الدفاع المدني (998)</span>
+            <span style="font-size: 12.5px; font-weight: 700; background: #ffffff; padding: 4px 10px; border-radius: 20px; border: 1px solid #ccfbf1; color: #335c67;"><i class="fa-solid fa-heart text-rose-500"></i> الاقتداء بتصرف فواز الشجاع وتوقير الجار</span>
+          </div>
+        </div>
+
         <div class="video-container-box">
           <h4><i class="fa-solid fa-film"></i> شاهد العرض المرئي للقصة:</h4>
           <div class="iframe-wrapper">
@@ -648,24 +719,50 @@
             <i class="fa-solid fa-hand-holding-heart"></i>
             <span>التكامل والتطبيق التفاعلي</span>
           </div>
-          <span class="strategy-badge">استراتيجية التعلم التبادلي والربط بالقيم</span>
+          <span class="strategy-badge">استراتيجية التعلم التبادلي والربط بالقيم والمواد</span>
         </div>
 
         <div class="integration-grid">
-          <div class="interactive-card" onclick="triggerCardAction('حديث نبوي', 'قال النبي ﷺ: (مَا زَالَ جِبْرِيلُ يُوصِينِي بِالْجَارِ حَتَّى ظَنَنْتُ أَنَّهُ سَيُوَرِّثُهُ)', '📜')">
+          <!-- التكامل الإسلامي -->
+          <div class="interactive-card" onclick="triggerCardAction('حديث نبوي - التكامل الإسلامي', 'قال النبي ﷺ: (مَا زَالَ جِبْرِيلُ يُوصِينِي بِالْجَارِ حَتَّى ظَنَنْتُ أَنَّهُ سَيُوَرِّثُهُ)', '📜')">
             <i class="fa-solid fa-kaaba"></i>
             <h3>التكامل الإسلامي</h3>
-            <p>اضغط للتعرف على وصية النبي ﷺ بالجار وحقوقه المشروعة.</p>
+            <p>وصية النبي ﷺ بالجار وحقوقه والتعاون معه في السرّاء والضرّاء.</p>
           </div>
-          <div class="interactive-card" onclick="triggerCardAction('حُسن التصرف', 'عند الأزمات: الهدوء - السرعة - الاتصال بالرقم الصحيح (٩٩٨)', '🚨')">
+
+          <!-- الوعي والأمان -->
+          <div class="interactive-card" onclick="triggerCardAction('حُسن التصرف والسلامة', 'عند الأزمات: الهدوء - السرعة - الاتصال بالرقم الصحيح (٩٩٨)', '🚨')">
             <i class="fa-solid fa-phone-volume"></i>
             <h3>الوعي والأمان</h3>
             <p>كيف تتصرف بحكمة وسرعة عند رؤية حالة طارئة؟</p>
           </div>
+
+          <!-- شكر الأبطال -->
           <div class="interactive-card" onclick="triggerCardAction('تقدير أبطال الوطن', 'نقدم كل الشكر والتقدير لرجال الدفاع المدني على جهودهم العظيمة.', '🫡')">
             <i class="fa-solid fa-award"></i>
             <h3>شكر الأبطال</h3>
             <p>تقدير جهود رجال الإطفاء والدفاع المدني في خدمة الوطن.</p>
+          </div>
+
+          <!-- الربط بمادة العلوم -->
+          <div class="interactive-card" onclick="triggerCardAction('الربط بمادة العلوم 🔬', 'الدخان هو مادة غازية تنتج عن الاحتراق، ويجب تجنب استنشاقه بالابتعاد بسرعة واستخدام قطعة قماش مبللة.', '🧪')">
+            <i class="fa-solid fa-flask text-teal-600"></i>
+            <h3>الربط بمادة العلوم</h3>
+            <p>التصاعد الغازي للدخان وآثاره وكيفية وقاية الجهاز التنفسي عند الحريق.</p>
+          </div>
+
+          <!-- الربط بمادة الرياضيات -->
+          <div class="interactive-card" onclick="triggerCardAction('الربط بمادة الرياضيات ➕', 'قراءة وفهم الرقم (٩٩٨) المكون من الآحاد والعشرات والمئات، وحساب سرعة الاستجابة.', '🔢')">
+            <i class="fa-solid fa-calculator text-blue-600"></i>
+            <h3>الربط بمادة الرياضيات</h3>
+            <p>قراءة وتحليل أرقام الطوارئ (998) والتعامل مع الأعداد والوقت.</p>
+          </div>
+
+          <!-- الربط بمادة الدراسات الإسلامية -->
+          <div class="interactive-card" onclick="triggerCardAction('الربط بالدراسات الإسلامية 🕌', 'تطبيق قيم الإحسان إلى الجار، وإماطة الأذى، ومساعدة الآخرين وتفقد أحوالهم.', '📖')">
+            <i class="fa-solid fa-book-quran text-amber-600"></i>
+            <h3>الربط بالدراسات الإسلامية</h3>
+            <p>غرس قيم الأخلاق الإسلامية والإحسان للجار وإغاثة الملهوف.</p>
           </div>
         </div>
       </section>
