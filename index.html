@@ -201,7 +201,7 @@
     @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     @media (max-width: 1024px) { .main-container { grid-template-columns: 1fr; } .footer-content { flex-direction: column; text-align: center; } }
 
-    /* أنماط وتنسيقات البيضة الخاصة المستوردة من egg.html */
+    /* أنماط وتنسيقات البيضة الخاصة */
     .egg-font { font-family: 'Cairo', sans-serif; }
     .egg-shadow { filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.12)) drop-shadow(0 8px 10px rgba(0, 0, 0, 0.08)); }
     .zigzag-clip-top { clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 88% 92%, 75% 100%, 62% 88%, 50% 100%, 38% 90%, 25% 100%, 12% 88%, 0% 100%); }
@@ -461,7 +461,6 @@
           </div>
 
           <div class="goals-grid">
-            <!-- هدف 1 -->
             <div class="goal-card">
               <div class="goal-icon-badge" style="background: linear-gradient(135deg, #0284c7, #0369a1);">
                 <i class="fa-solid fa-book-open"></i>
@@ -472,7 +471,6 @@
               </div>
             </div>
 
-            <!-- هدف 2 -->
             <div class="goal-card">
               <div class="goal-icon-badge" style="background: linear-gradient(135deg, #0d9488, #0f766e);">
                 <i class="fa-solid fa-brain"></i>
@@ -483,7 +481,6 @@
               </div>
             </div>
 
-            <!-- هدف 3 -->
             <div class="goal-card">
               <div class="goal-icon-badge" style="background: linear-gradient(135deg, #d97706, #b45309);">
                 <i class="fa-solid fa-spell-check"></i>
@@ -494,7 +491,6 @@
               </div>
             </div>
 
-            <!-- هدف 4 -->
             <div class="goal-card">
               <div class="goal-icon-badge" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">
                 <i class="fa-solid fa-egg"></i>
@@ -506,7 +502,6 @@
             </div>
           </div>
 
-          <!-- توضيح ما يتوقع من الطالب -->
           <div style="margin-top: 15px; padding-top: 12px; border-top: 1px dashed #99f6e4; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
             <span style="font-size: 13.5px; font-weight: 800; color: var(--primary);"><i class="fa-solid fa-circle-check text-emerald-600"></i> يتوقع من الطالب بنهاية الدرس:</span>
             <span style="font-size: 12.5px; font-weight: 700; background: #ffffff; padding: 4px 10px; border-radius: 20px; border: 1px solid #ccfbf1; color: #335c67;"><i class="fa-solid fa-star text-amber-500"></i> معرفة رقم طوارئ الدفاع المدني (998)</span>
@@ -640,11 +635,10 @@
         <div id="gameStatus" style="margin-top:20px; font-size:20px; font-weight:800; color:var(--success); text-align:center;"></div>
       </section>
 
-      <!-- STEP 5: Egg Strategy Slide (المحتوى المرفق كاملاً بالهيكل الأصلي من egg.html) -->
+      <!-- STEP 5: Egg Strategy Slide -->
       <section class="section-pane" id="pane-4">
         <div class="egg-font flex flex-col items-center justify-between p-2 md:p-4 rounded-2xl bg-radial from-yellow-100 to-sky-100 min-h-[550px]">
 
-          <!-- رأس الصفحة التفاعلي للاستراتيجية -->
           <header class="w-full max-w-4xl bg-white/90 backdrop-blur-md rounded-3xl shadow-lg border-2 border-amber-200 p-4 mb-4 flex flex-wrap justify-between items-center">
               <div class="flex items-center gap-3">
                   <div class="w-14 h-14 bg-gradient-to-tr from-amber-400 to-sky-400 rounded-2xl flex items-center justify-center text-white text-3xl shadow-md">
@@ -657,7 +651,6 @@
               </div>
 
               <div class="flex items-center gap-3 mt-3 sm:mt-0">
-                  <!-- عداد المرحلة -->
                   <div class="bg-sky-100 border-2 border-sky-300 px-4 py-1.5 rounded-2xl flex items-center gap-2">
                       <i class="fa-solid fa-egg text-amber-500 text-lg"></i>
                       <span class="font-black text-sky-900 text-base" id="stageCounter">البيضة 1 من 3</span>
@@ -665,48 +658,32 @@
               </div>
           </header>
 
-          <!-- المحتوى الرئيسي - البيضة الواقعية -->
           <main class="w-full max-w-2xl flex-1 flex flex-col items-center justify-center my-2 relative">
-              
-              <!-- التوجيه البصري -->
               <div class="bg-amber-50/90 border-2 border-amber-300 rounded-2xl px-6 py-2 mb-4 text-center font-black text-slate-800 text-sm md:text-base shadow-sm">
                   💡 اختر حرف المد المناسب (<span class="text-sky-600 font-extrabold"> ا </span> / <span class="text-amber-600 font-extrabold"> و </span> / <span class="text-emerald-600 font-extrabold"> ي </span>) ليرتفع ويُكمل البيضة!
               </div>
 
-              <!-- حاوية البيضة الواقعية المقسمة -->
               <div id="eggContainer" class="relative w-72 h-[380px] md:w-80 md:h-[420px] flex flex-col items-center egg-shadow float-egg transition-all duration-500">
-                  
-                  <!-- النصف العلوي للبيضة -->
                   <div id="eggTop" class="w-full h-[52%] bg-gradient-to-b from-amber-50 via-slate-100 to-amber-100 border-t-8 border-x-8 border-amber-200/80 rounded-t-[180px] zigzag-clip-top flex flex-col items-center justify-center pt-8 pb-10 px-4 relative shadow-inner">
-                      <!-- لمعان وقوام ثنائي اللون لإعطاء شفرة واقعية -->
                       <div class="absolute top-6 left-10 w-12 h-20 bg-white/60 rounded-full blur-md -rotate-12 pointer-events-none"></div>
                       <div class="text-xs font-black text-amber-700/60 mb-2">النصف العلوي</div>
-                      
-                      <!-- نص الكلمة مقسم -->
                       <div class="flex items-center justify-center gap-2 text-3xl md:text-4xl font-black text-sky-900 bg-white/60 px-4 py-2 rounded-2xl border border-amber-200/50 shadow-sm" id="wordDisplay">
-                          <!-- تتعبأ بالسكربت -->
                       </div>
                   </div>
 
-                  <!-- النصف السفلي للبيضة (منطقة استقبال الحرف الصاعد) -->
                   <div id="eggBottom" class="w-full h-[48%] -mt-4 bg-gradient-to-b from-amber-100 via-amber-50 to-amber-200 border-b-8 border-x-8 border-amber-200/80 rounded-b-[180px] zigzag-clip-bottom flex flex-col items-center justify-start pt-8 px-4 relative shadow-inner">
                       <div class="text-xs font-black text-sky-700/60 mb-2">النصف السفلي</div>
-                      
-                      <!-- تجويف حرف المد المستهدف -->
                       <div id="targetSlot" class="w-20 h-20 border-4 border-dashed border-sky-400/60 rounded-3xl flex items-center justify-center bg-white/70 shadow-inner text-3xl font-black text-amber-600 transition-all duration-300">
                           ؟
                       </div>
                   </div>
               </div>
 
-              <!-- الحروف العشوائية بالأسفل -->
               <div class="w-full max-w-md mt-6">
                   <h3 class="text-center font-black text-slate-700 mb-3 text-sm md:text-base">اختر حرف المد الصحيح للكلمة:</h3>
                   <div id="lettersContainer" class="flex justify-center items-center gap-4 md:gap-6">
-                      <!-- يتم توليد أزرار الحروف الثلاثة عشوائياً -->
                   </div>
               </div>
-
           </main>
 
         </div>
@@ -723,42 +700,37 @@
         </div>
 
         <div class="integration-grid">
-          <!-- التكامل الإسلامي -->
           <div class="interactive-card" onclick="triggerCardAction('حديث نبوي - التكامل الإسلامي', 'قال النبي ﷺ: (مَا زَالَ جِبْرِيلُ يُوصِينِي بِالْجَارِ حَتَّى ظَنَنْتُ أَنَّهُ سَيُوَرِّثُهُ)', '📜')">
             <i class="fa-solid fa-kaaba"></i>
             <h3>التكامل الإسلامي</h3>
             <p>وصية النبي ﷺ بالجار وحقوقه والتعاون معه في السرّاء والضرّاء.</p>
           </div>
 
-          <!-- الوعي والأمان -->
           <div class="interactive-card" onclick="triggerCardAction('حُسن التصرف والسلامة', 'عند الأزمات: الهدوء - السرعة - الاتصال بالرقم الصحيح (٩٩٨)', '🚨')">
             <i class="fa-solid fa-phone-volume"></i>
             <h3>الوعي والأمان</h3>
             <p>كيف تتصرف بحكمة وسرعة عند رؤية حالة طارئة؟</p>
           </div>
 
-          <!-- شكر الأبطال -->
           <div class="interactive-card" onclick="triggerCardAction('تقدير أبطال الوطن', 'نقدم كل الشكر والتقدير لرجال الدفاع المدني على جهودهم العظيمة.', '🫡')">
             <i class="fa-solid fa-award"></i>
             <h3>شكر الأبطال</h3>
             <p>تقدير جهود رجال الإطفاء والدفاع المدني في خدمة الوطن.</p>
           </div>
 
-          <!-- الربط بمادة العلوم -->
+          <!-- الربط بالمواد الدراسية الأخرى المطلوبة -->
           <div class="interactive-card" onclick="triggerCardAction('الربط بمادة العلوم 🔬', 'الدخان هو مادة غازية تنتج عن الاحتراق، ويجب تجنب استنشاقه بالابتعاد بسرعة واستخدام قطعة قماش مبللة.', '🧪')">
             <i class="fa-solid fa-flask text-teal-600"></i>
             <h3>الربط بمادة العلوم</h3>
             <p>التصاعد الغازي للدخان وآثاره وكيفية وقاية الجهاز التنفسي عند الحريق.</p>
           </div>
 
-          <!-- الربط بمادة الرياضيات -->
           <div class="interactive-card" onclick="triggerCardAction('الربط بمادة الرياضيات ➕', 'قراءة وفهم الرقم (٩٩٨) المكون من الآحاد والعشرات والمئات، وحساب سرعة الاستجابة.', '🔢')">
             <i class="fa-solid fa-calculator text-blue-600"></i>
             <h3>الربط بمادة الرياضيات</h3>
             <p>قراءة وتحليل أرقام الطوارئ (998) والتعامل مع الأعداد والوقت.</p>
           </div>
 
-          <!-- الربط بمادة الدراسات الإسلامية -->
           <div class="interactive-card" onclick="triggerCardAction('الربط بالدراسات الإسلامية 🕌', 'تطبيق قيم الإحسان إلى الجار، وإماطة الأذى، ومساعدة الآخرين وتفقد أحوالهم.', '📖')">
             <i class="fa-solid fa-book-quran text-amber-600"></i>
             <h3>الربط بالدراسات الإسلامية</h3>
@@ -813,8 +785,7 @@
     </main>
   </div>
 
-  <!-- النوافذ المنبثقة للعبة البيضة (egg.html) -->
-  <!-- نافذة الخطأ -->
+  <!-- النوافذ المنبثقة للعبة البيضة -->
   <div id="tryAgainModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs hidden items-center justify-center z-[10000] p-4">
       <div class="bg-white rounded-3xl p-6 max-w-xs w-full text-center shadow-2xl border-4 border-rose-400 transform scale-95 transition-all">
           <div class="w-16 h-16 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
@@ -828,7 +799,6 @@
       </div>
   </div>
 
-  <!-- نافذة التعزيز بعد الإجابة الصحيحة -->
   <div id="successEggModal" class="fixed inset-0 bg-black/40 backdrop-blur-xs hidden items-center justify-center z-[10000] p-4">
       <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl border-4 border-emerald-400 transform scale-95 transition-all">
           <div class="w-20 h-20 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-3 shadow-inner animate-bounce">
@@ -843,7 +813,6 @@
       </div>
   </div>
 
-  <!-- نافذة الفوز النهائي -->
   <div id="finalVictoryEggModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-[10000] p-4">
       <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl border-4 border-amber-400">
           <div class="w-24 h-24 bg-amber-100 text-amber-500 rounded-full flex items-center justify-center text-5xl mx-auto mb-4 shadow-inner animate-bounce">
@@ -872,7 +841,6 @@
     </div>
   </footer>
 
-  <!-- Generic Popup Modal -->
   <div class="modal-overlay" id="genericModal">
     <div class="modal-card" id="modalCard">
       <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -882,7 +850,6 @@
     </div>
   </div>
 
-  <!-- Password Protected Modal for Reset -->
   <div class="modal-overlay" id="confirmModal">
     <div class="modal-card" style="max-width: 400px;">
       <div style="font-size: 42px; color: var(--accent); margin-bottom: 10px;"><i class="fa-solid fa-lock"></i></div>
@@ -914,7 +881,7 @@
       window.appState.attendance.forEach((st, idx) => {
         const item = document.createElement("div");
         item.className = `student-item ${st.present ? '' : 'absent'}`;
-        item.draggable = st.present && !st.group;
+        item.draggable = st.present;
         item.ondragstart = (e) => e.dataTransfer.setData("text/plain", idx);
         item.innerHTML = `
           <span>${st.fullName} ${st.group ? '('+st.group+')' : ''}</span>
@@ -929,9 +896,6 @@
 
     function toggleAttendance(idx) {
       window.appState.attendance[idx].present = !window.appState.attendance[idx].present;
-      if(!window.appState.attendance[idx].present) {
-        window.appState.attendance[idx].group = null;
-      }
       saveDataToFirebase();
       renderAttendance();
       playAudioBeep('error');
@@ -954,7 +918,7 @@
         const container = document.getElementById(`group-${g}-list`);
         if(container) {
           const members = window.appState.attendance.filter(s => s.group === g);
-          container.innerHTML = members.map(m => `<span style="display:inline-block; background:white; padding:2px 6px; border-radius:4px; margin:2px; font-size:10px; font-weight:bold; border:1px solid #ccfbf1; color:var(--primary);">${m.fullName}</span>`).join("");
+          container.innerHTML = members.map(m => `<span style="display:inline-block; background:white; padding:2px 6px; border-radius:4px; margin:2px; font-size:10px; font-weight:bold; border:1px solid #ccfbf1; color:var(--primary); ${!m.present ? 'text-decoration:line-through; opacity:0.6;' : ''}">${m.fullName}</span>`).join("");
         }
       });
     }
@@ -1153,7 +1117,7 @@
     function triggerCardAction(t, d, i) { showModal(t, d, i); }
   </script>
 
-  <!-- السكريبت التفاعلي الكامل الخاص باستراتيجية البيضة مستورد من egg.html -->
+  <!-- السكريبت التفاعلي الكامل الخاص باستراتيجية البيضة -->
   <script>
     const eggStages = [
         {
@@ -1185,7 +1149,6 @@
     let currentStageIndex = 0;
     let isProcessing = false;
 
-    // نظام الصوت للبيضة
     const eggAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     function playEggSound(type) {
@@ -1260,6 +1223,7 @@
         if(lettersContainer) {
             lettersContainer.innerHTML = '';
             const randomLetters = shuffleOptions();
+            randomLetters.force = true;
             randomLetters.forEach(letter => {
                 const btn = document.createElement('button');
                 btn.className = "w-20 h-20 bg-gradient-to-tr from-white via-sky-50 to-sky-100 border-3 border-sky-300 rounded-3xl shadow-md text-3xl font-black text-sky-900 flex items-center justify-center hover:scale-110 hover:border-amber-400 transition-all transform active:scale-90 cursor-pointer shadow-amber-100";
