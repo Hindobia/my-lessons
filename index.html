@@ -946,10 +946,10 @@
     }
 
     const teams = [
-      { id: 'score1', name: '🦅 صقور الوطن' },
-      { id: 'score2', name: '🐎 فرسان العرب' },
-      { id: 'score3', name: '📖 أبطال القرآن' },
-      { id: 'score4', name: '🌟 رواد القيم' }
+      { id: 'score1', name: '🦅 صقور الوطن', key: 'صقور الوطن' },
+      { id: 'score2', name: '🐎 فرسان العرب', key: 'فرسان العرب' },
+      { id: 'score3', name: '📖 أبطال القرآن', key: 'أبطال القرآن' },
+      { id: 'score4', name: '🌟 رواد القيم', key: 'رواد القيم' }
     ];
 
     function playAudioBeep(type) {
@@ -1093,13 +1093,31 @@
     function calculateAndAnnounceWinner() {
       let maxScore = -1;
       let winningTeamName = null;
+      let winningTeamKey = null;
+
       teams.forEach(t => {
         const score = parseInt(document.getElementById(t.id).innerText);
-        if (score > maxScore) { maxScore = score; winningTeamName = t.name; }
+        if (score > maxScore) {
+          maxScore = score;
+          winningTeamName = t.name;
+          winningTeamKey = t.key;
+        }
       });
+
+      // جلب أسماء الطلاب التابعين للمجموعة الفائزة
+      const winningStudents = window.appState.attendance.filter(s => s.group === winningTeamKey);
+      let studentsHtml = "";
+      if (winningStudents.length > 0) {
+        studentsHtml = `<div style="margin-top:12px; font-size:14px; font-weight:700; background:#f0fdfa; padding:10px; border-radius:10px; border:1px solid #ccfbf1; color:var(--primary); max-height:120px; overflow-y:auto;">
+          <strong>أبطال المجموعة:</strong><br>` + winningStudents.map(s => `• ${s.fullName}`).join('<br>') + `</div>`;
+      } else {
+        studentsHtml = `<div style="margin-top:12px; font-size:13px; color:#64748b;">(لم يتم سحب أو تسجيل طلاب في هذه المجموعة بعد)</div>`;
+      }
+
       confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
       playAudioBeep('success');
-      showModal("🎉 التتويج", `الفائز: [ ${winningTeamName} ] برصيد (${maxScore}) نقطة!`, "👑");
+      
+      showModal("🎉 التتويج وإعلان الفائزين", `الفائز: <strong>[ ${winningTeamName} ]</strong> برصيد (${maxScore}) نقطة! <br>${studentsHtml}`, "👑");
     }
 
     // تفاعل لعبة "أنمي لغتي" (الأضداد) المُحدّثة
