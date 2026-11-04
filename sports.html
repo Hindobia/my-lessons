@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة التربية البدنية والدفاع عن النفس | مدرسة الهيشة للطفولة المبكرة</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'child-yellow': '#FFD166',
+                        'child-green': '#06D6A0',
+                        'child-blue': '#118AB2',
+                        'child-red': '#EF476F',
+                        'child-purple': '#073B4C',
+                        'child-violet': '#8338EC',
+                        'child-orange': '#FF70A6'
+                    },
+                    fontFamily: {
+                        'tajawal': ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #fff9c4 50%, #fce4ec 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 3D Dynamic Card Effects */
+        .card-3d {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08), 0 6px 6px rgba(0,0,0,0.1);
+        }
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(4deg) rotateY(-2deg) scale(1.02);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15), 0 10px 10px rgba(0,0,0,0.08);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-float-slow {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #118AB2;
+            border-radius: 10px;
+        }
+
+        /* Pulse glow */
+        .glow-button {
+            box-shadow: 0 0 15px rgba(255, 209, 102, 0.6);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(255, 209, 102, 0.9);
+        }
+
+        /* Background Pattern Bubble */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(2px);
+            animation: float 8s infinite ease-in-out;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="relative text-gray-800 pb-0 flex flex-col min-h-screen">
+
+    <!-- Background Decorative Bubbles -->
+    <div class="bubble w-24 h-24 top-10 left-10 animate-float" style="animation-delay: 0s;"></div>
+    <div class="bubble w-36 h-36 top-1/3 right-8 animate-float" style="animation-delay: 2s;"></div>
+    <div class="bubble w-20 h-20 bottom-20 left-1/4 animate-float" style="animation-delay: 4s;"></div>
+
+    <!-- Header Section -->
+    <header class="relative z-10 max-w-7xl mx-auto pt-6 px-4 w-full">
+        <div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 shadow-xl border-4 border-white/90">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-right">
+                <!-- Ministry & School Info -->
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="w-16 h-16 bg-gradient-to-tr from-child-blue to-child-green rounded-2xl flex items-center justify-center text-white text-3xl shadow-lg animate-float">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest">المملكة العربية السعودية - وزارة التعليم</h3>
+                        <h1 class="text-2xl md:text-3xl font-black text-child-purple mt-1">مدرسة الهيشة للطفولة المبكرة 🏫</h1>
+                        <p class="text-sm font-semibold text-child-blue mt-0.5">مادة التربية البدنية والدفاع عن النفس - الصف الثاني الابتدائي</p>
+                    </div>
+                </div>
+
+                <!-- Teacher & Principal Badges -->
+                <div class="flex flex-wrap justify-center gap-3">
+                    <div class="bg-gradient-to-r from-pink-500 to-rose-400 text-white px-5 py-2.5 rounded-2xl shadow-md border-2 border-white flex items-center space-x-2 space-x-reverse">
+                        <i class="fa-solid fa-chalkboard-user text-xl"></i>
+                        <div>
+                            <span class="text-xs block opacity-90">معلمة المادة</span>
+                            <strong class="text-sm font-black">أ. هند القرني</strong>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-r from-amber-400 to-orange-400 text-white px-5 py-2.5 rounded-2xl shadow-md border-2 border-white flex items-center space-x-2 space-x-reverse">
+                        <i class="fa-solid fa-user-gear text-xl"></i>
+                        <div>
+                            <span class="text-xs block opacity-90">مديرة المدرسة</span>
+                            <strong class="text-sm font-black">أ. هناء المعاوي</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Title Banner -->
+    <div class="relative z-10 max-w-7xl mx-auto my-8 px-4 text-center">
+        <div class="inline-block bg-gradient-to-r from-child-blue via-child-violet to-child-red text-white py-4 px-8 rounded-full shadow-2xl border-4 border-white transform hover:scale-105 transition-transform duration-300">
+            <h2 class="text-2xl md:text-4xl font-black tracking-wide flex items-center justify-center gap-3">
+                <span>🏃‍♂️</span> توزيع المنهج والدروس التفاعلية <span>⚽</span>
+            </h2>
+        </div>
+        <p class="mt-3 text-child-purple font-bold text-base md:text-lg">اضغط على أي درس للبدء في رحلة التعلم والمرح! ✨</p>
+    </div>
+
+    <!-- Syllabus Cards Grid -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 flex-grow w-full">
+        <div id="lessonsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Dynamic Lesson Cards will be rendered here by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/966565588869" target="_blank" rel="noopener noreferrer" 
+       class="fixed bottom-6 left-6 z-40 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl transition-all duration-300 hover:scale-110 animate-bounce glow-button"
+       title="تواصل عبر الواتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Harmonized Styled Footer -->
+    <footer class="relative z-10 mt-16 bg-gradient-to-r from-child-purple via-sky-900 to-child-purple border-t-4 border-child-yellow py-8 text-center text-white shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="text-xs text-child-yellow/80 font-bold uppercase tracking-widest">جميع الحقوق محفوظة © 2026</p>
+            <p class="text-lg text-child-yellow font-black tracking-wide drop-shadow-md">هند القرني | Hindobia</p>
+            <p class="text-xs text-cyan-200 font-semibold">بيشة - المملكة العربية السعودية 🇸🇦</p>
+        </div>
+    </footer>
+
+    <!-- Modal Dialog for Lesson Content -->
+    <div id="lessonModal" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 overflow-y-auto animate__animated animate__fadeIn">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border-4 border-child-yellow relative flex flex-col">
+            
+            <!-- Modal Header -->
+            <div id="modalHeader" class="p-6 rounded-t-2xl bg-gradient-to-r from-child-blue to-child-violet text-white relative">
+                <button onclick="closeModal()" class="absolute left-5 top-5 bg-white/20 hover:bg-white/40 text-white rounded-full w-10 h-10 flex items-center justify-center text-xl font-bold transition-all transform hover:rotate-90">
+                    ✕
+                </button>
+                <div class="flex items-center space-x-3 space-x-reverse mb-2">
+                    <span id="modalWeekBadge" class="bg-white/30 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold"></span>
+                    <span id="modalUnitBadge" class="bg-child-yellow text-child-purple px-3 py-1 rounded-full text-xs font-black"></span>
+                </div>
+                <h2 id="modalTitle" class="text-2xl md:text-3xl font-black mt-2"></h2>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 space-y-6 flex-1">
+                
+                <!-- Video Player Container -->
+                <div class="bg-slate-900 rounded-2xl overflow-hidden shadow-xl aspect-video relative border-4 border-gray-100">
+                    <iframe id="modalVideo" class="w-full h-full" src="" title="درس التربية البدنية" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <!-- Skill Explanation Card -->
+                <div class="bg-emerald-50 rounded-2xl p-5 border-2 border-child-green/30">
+                    <h3 class="text-xl font-black text-child-green flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-star"></i> شرح المهارة والتوجيهات البدنية:
+                    </h3>
+                    <p id="modalDescription" class="text-gray-700 leading-relaxed font-semibold text-base md:text-lg"></p>
+                </div>
+
+                <!-- Interactive Quiz Section -->
+                <div class="bg-amber-50 rounded-2xl p-5 border-2 border-child-yellow/50">
+                    <h3 class="text-xl font-black text-amber-600 flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-gamepad text-2xl"></i> اختبر نفسك يا بطل! 🏆
+                    </h3>
+                    
+                    <div id="quizContainer" class="space-y-4">
+                        <p id="quizQuestion" class="text-lg font-bold text-gray-800 bg-white p-4 rounded-xl border border-amber-200 shadow-sm"></p>
+                        
+                        <div id="quizOptions" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <!-- Options will be injected dynamically -->
+                        </div>
+
+                        <!-- Feedback Message -->
+                        <div id="quizFeedback" class="hidden p-4 rounded-xl text-center font-bold text-lg animate__animated"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 bg-gray-50 rounded-b-2xl border-t border-gray-200 flex justify-between items-center">
+                <span class="text-xs text-gray-500 font-bold">مدرسة الهيشة للطفولة المبكرة 🎈</span>
+                <button onclick="closeModal()" class="bg-child-red hover:bg-rose-600 text-white font-black px-6 py-2.5 rounded-xl shadow-md transition-transform transform active:scale-95">
+                    إغلاق الدرس ✖
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Web Audio API Sound System -->
+    <script>
+        // Web Audio Synthesizer for Fun Sound Effects
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+
+        function playSuccessSound() {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            
+            // Play a cheerful chord (C5, E5, G5, C6)
+            [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, now + i * 0.08);
+                gain.gain.setValueAtTime(0.15, now + i * 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.4);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now + i * 0.08);
+                osc.stop(now + i * 0.08 + 0.4);
+            });
+        }
+
+        function playErrorSound() {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(220, now);
+            osc.frequency.linearRampToValueAtTime(110, now + 0.3);
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.3);
+        }
+
+        function playClickSound() {
+            initAudio();
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, now);
+            osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.05);
+        }
+    </script>
+
+    <!-- App Data and Logic Script -->
+    <script>
+        const lessonsData = [
+            {
+                id: 1,
+                week: "الأسبوع 1",
+                unit: "الوحدة الأولى",
+                title: "التهيئة + عناصر اللياقة الحركية (الرشاقة، المرونة، الاتزان، التوافق)",
+                youtubeId: "ZwvLQqUPszI",
+                icon: "⚡",
+                color: "from-amber-400 to-orange-500",
+                type: "lesson",
+                description: "الرشاقة والمرونة والاتزان والتوافق هي أساس حركتك الذكية والقصوى! الرشاقة تُساعدك على تغيير اتجاهك بسرعة، والمرونة تُعطي عضلاتك مدى حركة واسع دون ألم، والاتزان يحميك من السقوط أثناء اللعب.",
+                quiz: {
+                    question: "ما هي المهارة التي تساعدك على تغيير اتجاه جسمك بسرعة وسهولة دون أن تسقط؟",
+                    options: [
+                        { text: "الرشاقة 🏃‍♂️", correct: true },
+                        { text: "النوم 😴", correct: false },
+                        { text: "الجلوس 🪑", correct: false }
+                    ],
+                    feedback: "ممتاز يا بطل! الرشاقة هي السر في الحركة السريعة والذكية!"
+                }
+            },
+            {
+                id: 2,
+                week: "الأسبوع 2",
+                unit: "الوحدة الأولى",
+                title: "ملابس الأجواء الحارة في أثناء ممارسة النشاط البدني",
+                youtubeId: "odlZI9Dg4aY",
+                icon: "🫁",
+                color: "from-sky-400 to-blue-600",
+                type: "lesson",
+                description: "عندما تجري وتلعب، تحتاج عضلاتك إلى المزيد من الأكسجين! لذلك يدق قلبك أسرع وتتسارع أنفاسك لمد الجسم بالطاقة. ارتداء ملابس خفيفة ومناسبة للأجواء الحارة يتيح للجسم التهوية الجيدة.",
+                quiz: {
+                    question: "لماذا يزداد معدل تنفسك وتتسارع ضربات قلبك عند الجري؟",
+                    options: [
+                        { text: "لإدخال المزيد من الأكسجين للعضلات 🫁", correct: true },
+                        { text: "لأن العضلات تريد التوقف 🛑", correct: false },
+                        { text: "لشرب الماء 💧", correct: false }
+                    ],
+                    feedback: "إجابة رائعة! أنفاسك السريعة هي وقود عضلاتك القوية أثناء النشاط!"
+                }
+            },
+            {
+                id: 3,
+                week: "الأسبوع 3",
+                unit: "الوحدة الأولى",
+                title: "التغير في معدل التنفس والتفسير المبسط له أثناء المجهود البدني",
+                youtubeId: "f8NMIiiTU7k",
+                icon: "🫁",
+                color: "from-cyan-400 to-teal-500",
+                type: "lesson",
+                description: "تغير معدل التنفس وتدرجه يضمن تزويد العضلات بالقدر الكافي من الطاقة والأكسجين اللازم للنشاط البدني.",
+                quiz: {
+                    question: "ما التأثير المباشر للمجهود البدني على التنفس؟",
+                    options: [
+                        { text: "توقف التنفس ❌", correct: false },
+                        { text: "تسارع معدل التنفس لتزويد الجسم بالأكسجين 🫁", correct: true },
+                        { text: "الشعور بالنوم 😴", correct: false }
+                    ],
+                    feedback: "أحسنت! تسارع التنفس يساعد جسمك على العمل بكفاءة عالية!"
+                }
+            },
+            {
+                id: 4,
+                week: "الأسبوع 4",
+                unit: "الوحدة الأولى",
+                title: "أهمية الغذاء الصحي",
+                youtubeId: "9wDTD8ca00g",
+                icon: "🥗",
+                color: "from-emerald-400 to-green-600",
+                type: "lesson",
+                description: "الغذاء الصحي يبني أجساد الأبطال! الفواكه، الخضروات، الحليب، والأطعمة الغنية بالبروتين تمنحك طاقة خارقة للعب والتركيز والنمو بشكل سليم.",
+                quiz: {
+                    question: "أي من هذه الأطعمة يُعتبر خياراً صحياً يمنحك الطاقة والقوة؟",
+                    options: [
+                        { text: "الحلويات الملونة بكثرة 🍬", correct: false },
+                        { text: "المشروبات الغازية 🥤", correct: false },
+                        { text: "الفواكه والخضروات والحليب 🍎🥛", correct: true }
+                    ],
+                    feedback: "بطل حقيقي! الغذاء الصحي هو سر طاقتك ونشاطك البدني!"
+                }
+            },
+            {
+                id: 5,
+                week: "الأسبوع 5",
+                unit: "الوحدة الأولى",
+                title: "ملابس الأجواء الباردة في أثناء ممارسة النشاط البدني",
+                youtubeId: "h99cecQsfWk",
+                icon: "🧥",
+                color: "from-blue-600 to-indigo-600",
+                type: "lesson",
+                description: "ارتداء ملابس رياضية مناسبة للأجواء الباردة يحفظ حرارة الجسم ويحمي العضلات أثناء ممارسة التمارين الخارجية.",
+                quiz: {
+                    question: "ما أهمية ارتداء الملابس المناسبة في البرد أثناء التمارين؟",
+                    options: [
+                        { text: "الحفاظ على حرارة الجسم وحماية العضلات 🧥", correct: true },
+                        { text: "زيادة الثقل والتعب ❌", correct: false },
+                        { text: "إعاقة الحركة 🛑", correct: false }
+                    ],
+                    feedback: "ممتاز! الملابس المناسبة تحميك من البرد وتمنحك الحرية بالحركة!"
+                }
+            },
+            {
+                id: 6,
+                week: "الأسبوع 6",
+                unit: "الوحدة الأولى",
+                title: "كيفية اختيار الغذاء الصحي",
+                youtubeId: "WCrM7G0n87M",
+                icon: "🍎",
+                color: "from-indigo-400 to-purple-600",
+                type: "lesson",
+                description: "تعلم كيفية اختيار الوجبات المتوازنة الغنية بالفيتامينات والمعادن التي تناسب نشاطك البدني اليومي.",
+                quiz: {
+                    question: "كيف تختار غذائك اليومي بشكل صحيح؟",
+                    options: [
+                        { text: "باختيار أطعمة متنوعة تحتوي على خضروات وفواكه وبروتين 🥗", correct: true },
+                        { text: "باختيار الأطعمة السريعة فقط 🍔", correct: false },
+                        { text: "بالاعتماد على السكريات فقط 🍩", correct: false }
+                    ],
+                    feedback: "رائع جداً! التنوع في الغذاء الصحي يبني جسداً قوياً وسليماً!"
+                }
+            },
+            {
+                id: 7,
+                week: "الأسبوع 7",
+                unit: "الوحدة الثانية",
+                title: "سحب المقاومات بطريقة صحيحة وآمنة وفعالة",
+                youtubeId: "1AvIYO1IU30",
+                icon: "💪",
+                color: "from-purple-400 to-pink-500",
+                type: "lesson",
+                description: "سحب المقاومات يتطلب التمركز الجيد واستخدام عضلات الأرجل والظهر بطريقة سليمة وآمنة لحماية المفاصل والجسم من الإصابات.",
+                quiz: {
+                    question: "ما هو الشرط الأساسي عند سحب المقاومات لضمان السلامة؟",
+                    options: [
+                        { text: "الاعتماد على الثبات واستقامة الجذع 📐", correct: true },
+                        { text: "الانحناء الخاطئ بقوة ❌", correct: false },
+                        { text: "السحب بالعينين 🙈", correct: false }
+                    ],
+                    feedback: "ثبات واستقامة الظهر تحميك من أي إصابة أثناء السحب!"
+                }
+            },
+            {
+                id: 8,
+                week: "الأسبوع 8",
+                unit: "الوحدة الثانية",
+                title: "الانزلاق الصحيح من الجري في خط مستقيم، خط متعرج، خط منحني",
+                youtubeId: "bz38Jg5Zya4",
+                icon: "⛸️",
+                color: "from-rose-400 to-red-500",
+                type: "lesson",
+                description: "الانزلاق مهارة حركية ممتعة تتطلب دفع الأرض بقدم والمتابعة بالقدم الأخرى في مسارات متعددة (مستقيمة، متعرجة، أو منحنية) مع التوازن.",
+                quiz: {
+                    question: "كيف تكون الحركة في مهارة الانزلاق الصحيح؟",
+                    options: [
+                        { text: "تتابع متوازن وسلس للقدمين 🦶", correct: true },
+                        { text: "القفز على قدم واحدة 🦩", correct: false },
+                        { text: "الزحف 🐛", correct: false }
+                    ],
+                    feedback: "ممتاز! التناغم بين القدمين يجعل انزلاقك خفيفاً وممتعاً!"
+                }
+            },
+            {
+                id: 9,
+                week: "الأسبوع 9",
+                unit: "إجازة رسمية",
+                title: "إجازة اليوم الوطني (الأربعاء والخميس 23 و 24 سبتمبر)",
+                youtubeId: "",
+                icon: "🇸🇦",
+                color: "from-green-500 to-emerald-700",
+                type: "event",
+                description: "إجازة اليوم الوطني للمملكة العربية السعودية. نحتفل معاً بالوطن ونتمنى لكم إجازة سعيدة ومليئة بالنشاط والبهجة!"
+            },
+            {
+                id: 10,
+                week: "الأسبوع 10",
+                unit: "الوحدة الثانية",
+                title: "الوقوف من الجلوس التربيع والذراعان ممدوتان للأمام",
+                youtubeId: "sgF0M-4gBLk",
+                icon: "🧘‍♂️",
+                color: "from-fuchsia-500 to-pink-600",
+                type: "lesson",
+                description: "مهارة تعتمد على قوة عضلات الرجلين والاتزان؛ تبدأ من وضع الجلوس تربيعاً ثم الاندفاع للأعلى للوقوف مع مد الذراعين للأمام للتوازن.",
+                quiz: {
+                    question: "أين تكون الذراعان عند الوقوف من وضع الجلوس التربيع؟",
+                    options: [
+                        { text: "خلف الظهر 🔙", correct: false },
+                        { text: "ممدودتين للأمام للتوازن 🙋‍♂️", correct: true },
+                        { text: "في الجيب 👖", correct: false }
+                    ],
+                    feedback: "إجابة صحيحة! مد الذراعين للأمام يمنحك التوازن الكامل للوقوف!"
+                }
+            },
+            {
+                id: 11,
+                week: "الأسبوع 11",
+                unit: "الوحدة الثانية",
+                title: "تمرير الكرة بطريقة صحيحة باليدين",
+                youtubeId: "h99cecQsfWk",
+                icon: "🏀",
+                color: "from-violet-500 to-purple-800",
+                type: "lesson",
+                description: "التمرير باليدين يتطلب إمساك الكرة بأصابع مفرودة أمام الصدر ثم دفعها بقوة مناسبة باتجاه الزميل مع توجيه النظر والمتابعة باليدين.",
+                quiz: {
+                    question: "كيف نمرر الكرة باليدين لزميلنا بشكل صحيح؟",
+                    options: [
+                        { text: "دفعها من الصدر باتجاه الزميل 🤲", correct: true },
+                        { text: "رميها بعيداً عشوائياً 🙈", correct: false },
+                        { text: "ركلها بالرأس 🗣️", correct: false }
+                    ],
+                    feedback: "رائع! التمرير الدقيق باليدين أساس الألعاب الجماعية الناجحة!"
+                }
+            },
+            {
+                id: 12,
+                week: "الأسبوع 12",
+                unit: "الوحدة الثالثة",
+                title: "الحجل بطريقة صحيحة إلى الأمام والخلف والمتعرج",
+                youtubeId: "o3dFW0VNP-Y",
+                icon: "🦘",
+                color: "from-amber-500 to-yellow-600",
+                type: "lesson",
+                description: "الحجل هو القفز المتكرر على قدم واحدة، ويساعد على تقوية عضلات الساقين وتنمية الاتزان الحركي للأمام والخلف والمسار المتعرج.",
+                quiz: {
+                    question: "على كم قدم نعتمد أثناء ممارسة مهارة الحجل؟",
+                    options: [
+                        { text: "على القدمين معاً 🦶🦶", correct: false },
+                        { text: "على قدم واحدة 🦩", correct: true },
+                        { text: "على اليدين والرجلين 🐾", correct: false }
+                    ],
+                    feedback: "مبدع! الحجل على قدم واحدة ينمي توازنك وقوة ساقيك!"
+                }
+            },
+            {
+                id: 13,
+                week: "الأسبوع 13",
+                unit: "الوحدة الثالثة",
+                title: "الدفع بطريقة صحيحة وآمنة وفعالة",
+                youtubeId: "RcnNQMwJDqk",
+                icon: "🏋️‍♂️",
+                color: "from-teal-400 to-emerald-600",
+                type: "lesson",
+                description: "الدفع هو تسليط قوة على جسم ما لإبعاده، ويجب أن يتم باستقامة الظهر واستخدام قوة الرجلين مع الانحناء البسيط لحماية المفاصل والسلامة العامة.",
+                quiz: {
+                    question: "ما المهم جداً أثناء دفع الأجسام لضمان سلامتك؟",
+                    options: [
+                        { text: "انحناء الظهر بشكل خاطئ ❌", correct: false },
+                        { text: "استقامة الظهر والاعتماد على قوة الرجلين 📐", correct: true },
+                        { text: "دفع الأجسام الثقيلة مفردك 🐘", correct: false }
+                    ],
+                    feedback: "ممتاز! سلامة ظهرك وجسمك هي الأهم دائماً أثناء الدفع!"
+                }
+            },
+            {
+                id: 14,
+                week: "الأسبوع 14",
+                unit: "الوحدة الثالثة",
+                title: "الميزان الأمامي من الثبات",
+                youtubeId: "WO9P2V_shM8",
+                icon: "⚖️",
+                color: "from-blue-500 to-indigo-700",
+                type: "lesson",
+                description: "مهارة جميلة من مهارات الجمباز والاتزان؛ ترتكز على قدم واحدة ويمتد الجذع للأمام مع رفع الرجل الأخرى للخلف وفرد الذراعين جانباً.",
+                quiz: {
+                    question: "ما الذي يساعدك على ثبات جسمك في وضع الميزان الأمامي؟",
+                    options: [
+                        { text: "فرد الذراعين جانباً والتركيز ⚖️", correct: true },
+                        { text: "إغلاق العينين 🙈", correct: false },
+                        { text: "القفز المستمر 🦘", correct: false }
+                    ],
+                    feedback: "أحسنت! التركيز وفرد الذراعين يجعل منك بطل جمباز متوازن!"
+                }
+            },
+            {
+                id: 15,
+                week: "الأسبوع 15",
+                unit: "الوحدة الرابعة",
+                title: "القفز قفزات سليمة لتجاوز ارتفاعات مختلفة بطريقة صحيحة وآمنة باستخدام الجسم كله، اليدين والرجلين",
+                youtubeId: "0nAhfcc6VcA",
+                icon: "🧗‍♂️",
+                color: "from-orange-400 to-red-600",
+                type: "lesson",
+                description: "تعتمد المهارة على ثني الركبتين للهبوط الخفيف الآمن واندفاع الجسم باستخدام اليدين والرجلين لتجاوز الحواجز والارتفاعات المنخفضة بأمان.",
+                quiz: {
+                    question: "كيف نهبط بأمان على الأرض بعد القفز فوق الحواجز؟",
+                    options: [
+                        { text: "بالهبوط على قدمين ممتدتين بقسوة 🦴", correct: false },
+                        { text: "بثني الركبتين قليلاً لامتصاص الصدمة 🦵", correct: true },
+                        { text: "بالسقوط على الجانب 🤕", correct: false }
+                    ],
+                    feedback: "إجابة ذكية! ثني الركبتين عند الهبوط يحمي مفاصلك ويوفر هبوطاً ناعماً وآمناً!"
+                }
+            },
+            {
+                id: 16,
+                week: "الأسبوع 16",
+                unit: "الوحدة الرابعة",
+                title: "القوس المعكوس نصفاً",
+                youtubeId: "fmJ-6WlFSp8",
+                icon: "🏹",
+                color: "from-amber-600 to-orange-700",
+                type: "lesson",
+                description: "مهارة لياقية تزيد من مرونة العمود الفقري والعضلات الخلفية للجسم، وتؤدى من الاستلقاء أو الانثناء الخلفي الخفيف بدرجة آمنة.",
+                quiz: {
+                    question: "ما هي الفائدة الرئيسية لمهارة القوس المعكوس؟",
+                    options: [
+                        { text: "زيادة مرونة الظهر والجسم 🤸‍♂️", correct: true },
+                        { text: "تقوية الأسنان 🦷", correct: false },
+                        { text: "زيادة السرعة في الجري 🏃‍♂️", correct: false }
+                    ],
+                    feedback: "صحيح جداً! مرونة الظهر تمنح جسمك ليونة وحركة انسيابية ممتازة!"
+                }
+            },
+            {
+                id: 17,
+                week: "الأسبوع 17",
+                unit: "الوحدة الرابعة",
+                title: "تمرير الكرة بطريقة صحيحة بيد واحدة",
+                youtubeId: "fmJ-6WlFSp8",
+                icon: "🤾‍♂️",
+                color: "from-pink-500 to-rose-600",
+                type: "lesson",
+                description: "تُستخدم هذه المهارة لتمرير الكرة لمسافات أطول؛ بإرجاع اليد الممررة للخلف بجانب الكتف ثم دفع الكرة للأمام بتوجيه اليد والرسغ.",
+                quiz: {
+                    question: "متى نفضل استخدام التمرير بيد واحدة في الألعاب؟",
+                    options: [
+                        { text: "لتمرير الكرة لمسافة أطول وأسرع 🎯", correct: true },
+                        { text: "عند النوم 💤", correct: false },
+                        { text: "عند إمساك الكرة بالقدم 👣", correct: false }
+                    ],
+                    feedback: "بطل واعٍ! التمرير بيد واحدة يمنحك سرعة ومدى أكبر في التمرير!"
+                }
+            },
+            {
+                id: 18,
+                week: "الأسبوع 18",
+                unit: "إجازة رسمية",
+                title: "إجازة الخريف",
+                youtubeId: "",
+                icon: "🍂",
+                color: "from-cyan-500 to-blue-700",
+                type: "event",
+                description: "استمتعوا بوقتا ممتعاً ونشيطاً خلال إجازة الخريف لاستعادة الطاقة والنشاط لمواصلة الفصل الدراسي بنفس القوة!"
+            },
+            {
+                id: 19,
+                week: "الأسبوع 19",
+                unit: "الوحدة الخامسة",
+                title: "القفز لتجاوز ارتفاعات مختلفة بطريقة صحيحة وآمنة",
+                youtubeId: "mKTi9Pgp1Wo",
+                icon: "🦘",
+                color: "from-emerald-500 to-teal-700",
+                type: "lesson",
+                description: "تطبيق متقدم للقفز العالي والمنخفض مع مراعاة شروط السلامة والتوقيت الصحيح للدفع بالقدمين واستغلال مرونة الذراعين في الاندفاع.",
+                quiz: {
+                    question: "ما الذي نستخدمه المساعدة الجسم على الاندفاع للأعلى أثناء القفز؟",
+                    options: [
+                        { text: "أرجحة الذراعين بقوة للأعلى 🙆‍♂️", correct: true },
+                        { text: "وضع اليدين خلف الظهر 🙇‍♂️", correct: false },
+                        { text: "إغلاق العينين 🙈", correct: false }
+                    ],
+                    feedback: "إجابة ممتازة! حركة الذراعين تدفع جسمك نحو الأعلى كالصاروخ!"
+                }
+            },
+            {
+                id: 20,
+                week: "الأسبوع 20",
+                unit: "الوحدة الخامسة",
+                title: "الرفع الصحيح للأثقال",
+                youtubeId: "mKTi9Pgp1Wo",
+                icon: "🏋️",
+                color: "from-emerald-600 to-green-800",
+                type: "lesson",
+                description: "تعلم كيفية رفع الأشياء الخفيفة والمناسبة من الأرض؛ بالاقتراب من الشيء، وثني الركبتين، والمحافظة على استقامة الظهر، والدفع بعضلات الرجلين.",
+                quiz: {
+                    question: "كيف نرفع الأشياء من الأرض دون إيذاء ظهرنا؟",
+                    options: [
+                        { text: "نثني الركبتين ونبقي الظهر مستقيماً 🏋️‍♂️", correct: true },
+                        { text: "نحني الظهر فقط ❌", correct: false },
+                        { text: "نرفع أشياء ثقيلة جداً 🐘", correct: false }
+                    ],
+                    feedback: "أحسنت! ثني الركبتين واستقامة الظهر هو السر لرفع آمن وصحي!"
+                }
+            },
+            {
+                id: 21,
+                week: "الأسبوع 21",
+                unit: "الوحدة الخامسة",
+                title: "ركل الكرة المتحركة بالقدم + مراجعة عامة",
+                youtubeId: "mKTi9Pgp1Wo",
+                icon: "⚽",
+                color: "from-purple-600 to-indigo-800",
+                type: "lesson",
+                description: "مهارة أساسية في كرة القدم تتطلب تركيز العينين على الكرة المتحركة، ووضع قدم ارتكاز بجانب الكرة، وركلها بأسفل القدم أو بمقدمتها مع مراجعة شاملة للمهارات.",
+                quiz: {
+                    question: "أين يجب أن ننظر عندما نريد ركل كرة متحركة بالقدم؟",
+                    options: [
+                        { text: "نركز نظرنا على الكرة المتحركة ⚽👀", correct: true },
+                        { text: "ننظر للسماء ☁️", correct: false },
+                        { text: "نغمض أعيننا 🙈", correct: false }
+                    ],
+                    feedback: "التركيز بالعينين هو مفتاح الركلة الدقيقة والهدف الرائع!"
+                }
+            },
+            {
+                id: 22,
+                week: "الأسبوع 22",
+                unit: "الوحدة الخامسة",
+                title: "ركل الكرة المتحركة بالقدم + مراجعة",
+                youtubeId: "mKTi9Pgp1Wo",
+                icon: "⚽",
+                color: "from-red-600 to-rose-800",
+                type: "lesson",
+                description: "التأكيد والاستمرار في ممارسة وتثبيت مهارة ركل الكرة المتحركة بدقة والتأكد من استيعاب كافة التمارين اللياقية السابقة.",
+                quiz: {
+                    question: "ماذا تفعل قدم الارتكاز عند ركل الكرة؟",
+                    options: [
+                        { text: "توضع بثبات بجانب الكرة 🦶", correct: true },
+                        { text: "تطير في الهواء 🕊️", correct: false },
+                        { text: "تثنى للخلف ↩️", correct: false }
+                    ],
+                    feedback: "قدم الارتكاز الثابتة تمنحك قوة في الركل والتوازن!"
+                }
+            },
+            {
+                id: 23,
+                week: "الأسبوع 23",
+                unit: "التقويم النهائي والختام",
+                title: "الاختبارات الشفهية والعملية والاختبارات النهائية وإجازة منتصف العام",
+                youtubeId: "",
+                icon: "🎓",
+                color: "from-blue-400 to-cyan-600",
+                type: "event",
+                description: "أداء الاختبارات النهائية وختام الفصل الدراسي بنجاح! نتمنى لكم إجازة سعيد ومليئة بالراحة والنشاط والصحة الجيدة!"
+            }
+        ];
+
+        // Render Lessons to Grid
+        function renderLessons() {
+            const gridContainer = document.getElementById('lessonsGrid');
+            gridContainer.innerHTML = '';
+
+            lessonsData.forEach((lesson) => {
+                const card = document.createElement('div');
+                card.className = `card-3d bg-white rounded-3xl overflow-hidden border-4 border-white shadow-xl flex flex-col justify-between cursor-pointer transform transition-all hover:-translate-y-2`;
+                
+                card.onclick = () => openModal(lesson);
+
+                const actionText = lesson.type === 'lesson' ? 'مشاهدة الدرس 🎬' : 'التفاصيل 📅';
+
+                card.innerHTML = `
+                    <div>
+                        <!-- Card Header Banner -->
+                        <div class="bg-gradient-to-r ${lesson.color} p-4 text-white relative overflow-hidden">
+                            <div class="flex justify-between items-center relative z-10">
+                                <span class="bg-white/30 backdrop-blur-md text-white font-bold text-xs px-3 py-1 rounded-full shadow-sm">
+                                    ${lesson.week}
+                                </span>
+                                <span class="bg-black/20 text-white font-bold text-xs px-3 py-1 rounded-full">
+                                    ${lesson.unit}
+                                </span>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <span class="text-5xl block animate-float">${lesson.icon}</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-5">
+                            <h3 class="font-black text-lg text-gray-800 leading-snug mb-2 hover:text-child-blue transition-colors">
+                                ${lesson.title}
+                            </h3>
+                            <p class="text-xs text-gray-500 line-clamp-3 font-semibold">
+                                ${lesson.description}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer Action -->
+                    <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs font-black text-child-purple flex items-center gap-1">
+                            ${actionText}
+                        </span>
+                        <span class="bg-child-yellow hover:bg-amber-400 text-child-purple text-xs font-black px-3 py-1.5 rounded-xl transition-all shadow-sm flex items-center gap-1">
+                            تصفح 🚀
+                        </span>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        // Active Lesson Storage
+        let currentLesson = null;
+
+        // Open Lesson Modal
+        function openModal(lesson) {
+            playClickSound();
+            currentLesson = lesson;
+
+            document.getElementById('modalWeekBadge').innerText = lesson.week;
+            document.getElementById('modalUnitBadge').innerText = lesson.unit;
+            document.getElementById('modalTitle').innerText = `${lesson.icon} ${lesson.title}`;
+            document.getElementById('modalDescription').innerText = lesson.description;
+
+            const videoIframe = document.getElementById('modalVideo');
+            const quizContainer = document.getElementById('quizContainer').parentElement;
+
+            if (lesson.type === 'lesson' && lesson.youtubeId) {
+                videoIframe.parentElement.classList.remove('hidden');
+                videoIframe.src = `https://www.youtube.com/embed/${lesson.youtubeId}?autoplay=1&rel=0`;
+                quizContainer.classList.remove('hidden');
+                setupQuiz(lesson.quiz);
+            } else {
+                // For Events / Vacations / Exams without videos
+                videoIframe.parentElement.classList.add('hidden');
+                videoIframe.src = '';
+                quizContainer.classList.add('hidden');
+            }
+
+            // Show Modal
+            const modal = document.getElementById('lessonModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Modal
+        function closeModal() {
+            playClickSound();
+            const modal = document.getElementById('lessonModal');
+            modal.classList.add('hidden');
+            
+            // Stop Video
+            document.getElementById('modalVideo').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Setup Quiz Logic
+        function setupQuiz(quizData) {
+            const questionEl = document.getElementById('quizQuestion');
+            const optionsEl = document.getElementById('quizOptions');
+            const feedbackEl = document.getElementById('quizFeedback');
+
+            questionEl.innerText = quizData.question;
+            optionsEl.innerHTML = '';
+            feedbackEl.className = 'hidden p-4 rounded-xl text-center font-bold text-lg animate__animated';
+
+            quizData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-right bg-white hover:bg-amber-100/80 text-gray-800 font-bold p-3.5 rounded-xl border-2 border-amber-200 transition-all shadow-sm flex items-center justify-between text-base transform hover:scale-[1.01] active:scale-95`;
+                btn.innerHTML = `
+                    <span>${opt.text}</span>
+                    <i class="fa-regular fa-circle text-amber-400"></i>
+                `;
+
+                btn.onclick = () => checkAnswer(opt, quizData, btn);
+                optionsEl.appendChild(btn);
+            });
+        }
+
+        // Check Quiz Answer
+        function checkAnswer(selectedOption, quizData, btnElement) {
+            const feedbackEl = document.getElementById('quizFeedback');
+            const allButtons = document.querySelectorAll('#quizOptions button');
+            
+            // Disable all buttons to prevent multiple clicks
+            allButtons.forEach(b => b.disabled = true);
+
+            if (selectedOption.correct) {
+                playSuccessSound();
+                btnElement.classList.remove('bg-white', 'border-amber-200');
+                btnElement.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                
+                feedbackEl.innerHTML = `🎉 ${quizData.feedback}`;
+                feedbackEl.className = 'p-4 rounded-xl text-center font-black text-lg bg-emerald-100 text-emerald-800 border-2 border-emerald-400 animate__animated animate__bounceIn block';
+
+                // Confetti Explosion
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            } else {
+                playErrorSound();
+                btnElement.classList.remove('bg-white', 'border-amber-200');
+                btnElement.classList.add('bg-rose-500', 'text-white', 'border-rose-600');
+
+                feedbackEl.innerHTML = `💡 محاولة رائعة يا بطل! فكر مجدداً واستعن بفيديو الدرس! 💪`;
+                feedbackEl.className = 'p-4 rounded-xl text-center font-black text-lg bg-rose-100 text-rose-800 border-2 border-rose-400 animate__animated animate__shakeX block';
+            }
+        }
+
+        // Initialize App on DOM Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderLessons();
+        });
+
+        // ESC Key listener to close modal
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>
