@@ -818,7 +818,8 @@
 
             if (lesson.type === 'lesson' && lesson.youtubeId) {
                 videoIframe.parentElement.classList.remove('hidden');
-                videoIframe.src = `https://www.youtube.com/embed/${lesson.youtubeId}?autoplay=1&rel=0`;
+                // تم إزالة autoplay=1 بحيث لا يعمل الفيديو تلقائياً حتى يضغط المستخدم زر التشغيل
+                videoIframe.src = `https://www.youtube.com/embed/${lesson.youtubeId}?rel=0`;
                 quizContainer.classList.remove('hidden');
                 setupQuiz(lesson.quiz);
             } else {
@@ -863,21 +864,21 @@
                     <i class="fa-regular fa-circle text-amber-400"></i>
                 `;
 
-                btn.onclick = () => checkAnswer(opt, quizData, btn);
+                btn.onclick = () => checkAnswer(opt, quizData, btn, optionsEl);
                 optionsEl.appendChild(btn);
             });
         }
 
         // Check Quiz Answer
-        function checkAnswer(selectedOption, quizData, btnElement) {
+        function checkAnswer(selectedOption, quizData, btnElement, optionsContainer) {
             const feedbackEl = document.getElementById('quizFeedback');
-            const allButtons = document.querySelectorAll('#quizOptions button');
-            
-            // Disable all buttons to prevent multiple clicks
-            allButtons.forEach(b => b.disabled = true);
 
             if (selectedOption.correct) {
                 playSuccessSound();
+                // تعطيل جميع الأزرار عند الإجابة الصحيحة فقط لمنع تغيير الإجابة
+                const allButtons = optionsContainer.querySelectorAll('button');
+                allButtons.forEach(b => b.disabled = true);
+
                 btnElement.classList.remove('bg-white', 'border-amber-200');
                 btnElement.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
                 
@@ -892,10 +893,12 @@
                 });
             } else {
                 playErrorSound();
-                btnElement.classList.remove('bg-white', 'border-amber-200');
-                btnElement.classList.add('bg-rose-500', 'text-white', 'border-rose-600');
+                // في حال كانت الإجابة خاطئة، نلون زر الخطأ بالأحمر ونسمح للطالب بإعادة المحاولة واختيار إجابة أخرى
+                btnElement.disabled = true;
+                btnElement.classList.remove('bg-white', 'border-amber-200', 'hover:bg-amber-100/80');
+                btnElement.classList.add('bg-rose-500', 'text-white', 'border-rose-600', 'opacity-70');
 
-                feedbackEl.innerHTML = `💡 محاولة رائعة يا بطل! فكر مجدداً واستعن بفيديو الدرس! 💪`;
+                feedbackEl.innerHTML = `💡 محاولة خاطئة يا بطل! حاول مرة أخرى واختار الإجابة الصحيحة 💪`;
                 feedbackEl.className = 'p-4 rounded-xl text-center font-black text-lg bg-rose-100 text-rose-800 border-2 border-rose-400 animate__animated animate__shakeX block';
             }
         }
