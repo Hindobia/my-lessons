@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عرض تعليمي لدرس: رِحْلَةُ حَبَّةِ قَمْحٍ | مدرسة الهيشة للطفولة المبكرة</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Readex+Pro:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --gold-light: #fef08a;
+      --gold-primary: #d97706;
+      --gold-dark: #78350f;
+      --amber-glow: #f59e0b;
+      --royal-green: #064e3b;
+      --emerald-accent: #059669;
+      --bg-gradient: radial-gradient(circle at 50% 0%, #2e1d05 0%, #170d02 45%, #080501 100%);
+      --font-main: 'Tajawal', sans-serif;
+      --font-read: 'Readex Pro', sans-serif;
+      --font-cairo: 'Cairo', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-gradient);
+      color: #fef8ee;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Golden Particles Background */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Luxury Glassmorphism Container */
+    .glass-card {
+      background: rgba(26, 17, 5, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6),
+                  inset 0 1px 2px rgba(254, 240, 138, 0.25);
+      border-radius: 28px;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(245, 158, 11, 0.6);
+      box-shadow: 0 35px 80px rgba(217, 119, 6, 0.25),
+                  inset 0 1px 4px rgba(254, 240, 138, 0.4);
+    }
+
+    /* Golden Metallic Text Gradient */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fffbeb 0%, #fde047 30%, #d97706 70%, #92400e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .emerald-gradient-text {
+      background: linear-gradient(135deg, #a7f3d0 0%, #34d399 40%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Royal Crest Ornament Borders */
+    .royal-border-box {
+      position: relative;
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, rgba(217,119,6,0.2), rgba(6,78,59,0.3)) padding-box,
+                  linear-gradient(135deg, #fde047 0%, #d97706 50%, #059669 100%) border-box;
+      border-radius: 22px;
+    }
+
+    /* Glowing 3D Button */
+    .btn-gold-3d {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #92400e 100%);
+      color: #ffffff;
+      font-weight: 900;
+      box-shadow: 0 10px 30px rgba(217, 119, 6, 0.4),
+                  inset 0 2px 2px rgba(255, 255, 255, 0.4);
+      border: 1px solid #fde047;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-gold-3d::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: rotate(30deg) translateY(-100%);
+      transition: transform 0.8s ease;
+    }
+
+    .btn-gold-3d:hover::after {
+      transform: rotate(30deg) translateY(100%);
+    }
+
+    .btn-gold-3d:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 18px 45px rgba(245, 158, 11, 0.6),
+                  inset 0 2px 4px rgba(255, 255, 255, 0.6);
+    }
+
+    /* Decorative Floating Icons */
+    .floating-wheat {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(3deg); }
+    }
+
+    /* Shimmer Effect */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .shimmer-badge {
+      background: linear-gradient(90deg, rgba(245,158,11,0.15) 0%, rgba(254,240,138,0.35) 50%, rgba(245,158,11,0.15) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 4s infinite;
+    }
+  </style>
+</head>
+<body class="py-10 px-4 md:px-8">
+
+  <!-- Background Particle Canvas -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Main Container -->
+  <div class="max-w-5xl mx-auto relative z-10 flex flex-col gap-10">
+
+    <!-- Header & Official Badges -->
+    <header class="glass-card p-6 md:p-10 text-center relative overflow-hidden">
+      <!-- Background Ambient Glow -->
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Ministry & School Header -->
+      <div class="flex flex-col md:flex-row justify-between items-center border-b border-amber-500/30 pb-8 gap-6">
+        <div class="flex items-center gap-4 text-right">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-3xl shadow-lg border border-amber-200/50 floating-wheat">
+            🌾
+          </div>
+          <div>
+            <h3 class="text-xs md:text-sm font-bold text-amber-300 tracking-wider">المملكة العربية السعودية</h3>
+            <h2 class="text-sm md:text-base font-extrabold text-amber-100">وزارة التعليم</h2>
+            <p class="text-xs text-amber-200/80 font-medium">الإدارة العامة للتعليم بمنطقة عسير</p>
+          </div>
+        </div>
+
+        <div class="text-center md:text-left bg-emerald-950/60 border border-emerald-500/40 px-6 py-3 rounded-2xl">
+          <span class="text-xs text-emerald-300 font-extrabold uppercase tracking-widest block mb-1">صَرْحُ التَّمَيُّزِ وَالْعَطَاءِ</span>
+          <h4 class="text-base font-black text-emerald-100">مدرسة الهيشة للطفولة المبكرة</h4>
+        </div>
+      </div>
+
+      <!-- Applied Lesson Title Banner -->
+      <div class="mt-8 relative">
+        <div class="inline-block shimmer-badge border border-amber-400/40 px-6 py-2 rounded-full mb-4">
+          <span class="text-xs md:text-sm font-black text-amber-300 flex items-center gap-2">
+            <i class="fa-solid fa-crown text-yellow-400"></i>
+            أهلا بك في درس             <i class="fa-solid fa-crown text-yellow-400"></i>
+          </span>
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-black font-cairo gold-gradient-text tracking-wide mb-3">
+          رِحْلَةُ حَبَّةِ قَمْحٍ 🌾
+        </h1>
+        <p class="text-sm md:text-lg font-bold text-amber-200/90 font-read max-w-2xl mx-auto">
+          الوحدة الخامسة: مَحَاصِيلُ مِنْ بِلَادِي<br>(قيم العطاء، الشكر، وحفظ النعمة)
+        </p>
+      </div>
+
+      <!-- Meta Info Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+        <div class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-4 text-center">
+          <i class="fa-solid fa-book-open text-amber-400 text-xl mb-1"></i>
+          <span class="block text-xs text-amber-300 font-semibold">المادة والصف</span>
+          <strong class="text-sm text-amber-100 font-bold">لغتي - الصف الثاني (أ)</strong>
+        </div>
+
+        <div class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-4 text-center">
+          <i class="fa-solid fa-chalkboard-user text-amber-400 text-xl mb-1"></i>
+          <span class="block text-xs text-amber-300 font-semibold">إعداد وتنفيذ</span>
+          <strong class="text-sm text-amber-100 font-bold">أ. هند القرني</strong>
+        </div>
+
+        <div class="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-4 text-center">
+          <i class="fa-solid fa-user-tie text-amber-400 text-xl mb-1"></i>
+          <span class="block text-xs text-amber-300 font-semibold">مديرة المدرسة</span>
+          <strong class="text-sm text-amber-100 font-bold">أ. هناء المعاوي</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Royal Quote Card -->
+    <section class="royal-border-box p-8 text-center relative overflow-hidden shadow-2xl">
+      <div class="text-4xl text-amber-400/30 font-serif absolute top-2 right-4">“</div>
+      <div class="text-4xl text-amber-400/30 font-serif absolute bottom-2 left-4">”</div>
+      
+      <p class="text-lg md:text-2xl font-bold font-read text-amber-100 leading-relaxed max-w-3xl mx-auto">
+        "تَنْمُو السَّنَابِلُ الذَّهَبِيَّةُ بِفَضْلِ اللَّهِ ثُمَّ بِرِعَايَةِ وَعَطَاءِ أَرْضِنَا الطَّيِّبَةِ، وَمِنْ حُقُولِ وَطَنِنَا الْمِعْطَاءِ نَسْتَلْهِمُ رِحْلَةَ الْحَبَّةِ وَنِعْمَةَ الْقُوتِ وَحِفْظَ النِّعْمَةِ."
+      </p>
+    </section>
+
+    <!-- Educational Lights Section -->
+    <section class="glass-card p-8 md:p-10">
+      <div class="flex items-center gap-3 mb-8 border-b border-amber-500/30 pb-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl">
+          <i class="fa-solid fa-lightbulb"></i>
+        </div>
+        <div>
+          <h2 class="text-xl md:text-2xl font-black gold-gradient-text">إِضَاءَاتٌ تَرْبَوِيَّةٌ مُسْتَوْحَاةٌ مِنَ الدَّرْسِ</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- 1. Religion Light Card -->
+        <div class="bg-gradient-to-b from-amber-950/60 to-amber-900/20 border border-amber-500/30 rounded-2xl p-6 transition hover:-translate-y-2">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-2xl mb-4 border border-amber-400/30">
+            🕌
+          </div>
+          <h3 class="text-lg font-black text-amber-300 mb-2">فِي دِينِنَا الْحَنِيفِ</h3>
+          <p class="text-xs md:text-sm text-amber-100/90 leading-relaxed font-medium">
+            أَمَرَنَا اللَّهُ تَعَالَى بِشُكْرِ نِعَمِهِ وَحِفْظِهَا مِنَ الإِسْرَافِ وَالتَّبْذِيرِ، قَالَ تَعَالَى: 
+            <span class="block font-bold text-yellow-300 my-2 text-center text-sm md:text-base font-read">﴿ كُلُوا وَاشْرَبُوا وَلَا تُسْرِفُوا ﴾</span>
+            كَمَا أَوْصَانَا بِتَقْدِيرِ الْجُهُودِ وَالْعَمَلِ الصَّالِحِ وَاحْتِرَامِ كَافَّةِ الْمِهَنِ.
+          </p>
+        </div>
+
+        <!-- 2. Homeland Light Card -->
+        <div class="bg-gradient-to-b from-emerald-950/60 to-emerald-900/20 border border-emerald-500/30 rounded-2xl p-6 transition hover:-translate-y-2">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-2xl mb-4 border border-emerald-400/30">
+            🇸🇦
+          </div>
+          <h3 class="text-lg font-black emerald-gradient-text mb-2">فِي وَطَنِنَا الْغَالِي</h3>
+          <p class="text-xs md:text-sm text-emerald-100/90 leading-relaxed font-medium">
+            تَعْكِسُ قِصَّةُ <strong class="text-emerald-300">"رِحْلَةِ حَبَّةِ قَمْحٍ"</strong> أَسْمَى مَعَانِي الاِكْتِفَاءِ الذَّاتِيِّ، وَجُهُودَ قِيَادَتِنَا الرَّشِيدَةِ فِي دَعْمِ الأَمْنِ الْغِذَائِيِّ وَرِعَايَةِ الْمَحَاصِيلِ الزِّرَاعِيَّةِ الْمُبَارَكَةِ فِي مَمْلَكَتِنَا الْمِعْطَاءِ.
+          </p>
+        </div>
+
+        <!-- 3. Life & Practice Light Card -->
+        <div class="bg-gradient-to-b from-amber-950/60 to-amber-900/20 border border-amber-500/30 rounded-2xl p-6 transition hover:-translate-y-2">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-2xl mb-4 border border-amber-400/30">
+            🌾
+          </div>
+          <h3 class="text-lg font-black text-amber-300 mb-2">فِي وَاقِعِنَا وَحَيَاتِنَا</h3>
+          <ul class="text-xs md:text-sm text-amber-100/90 space-y-2 font-medium">
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400">🌱</span>
+              <span>استكشاف مراحل نمو القمح من البذر والإنبات حتى الخبز.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-yellow-400">🍞</span>
+              <span>غرس روح المبادرة، تقدير مهنة الفلاح والخباز، وحفظ النعمة.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Interactive Stage Journey Summary -->
+    <section class="glass-card p-8 text-center">
+      <h3 class="text-lg md:text-xl font-black text-amber-300 mb-6">مَرَاحِلُ رِحْلَةِ حَبَّةِ الْقَمْحِ التَّفَاعُلِيَّةِ</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-amber-950/30 border border-amber-500/20 rounded-2xl p-4">
+          <div class="text-3xl mb-1">🌱</div>
+          <div class="text-xs font-bold text-amber-200">1. الْبَذْرُ وَالإِنْبَاتُ</div>
+        </div>
+        <div class="bg-amber-950/30 border border-amber-500/20 rounded-2xl p-4">
+          <div class="text-3xl mb-1">🌿</div>
+          <div class="text-xs font-bold text-amber-200">2. نُمُوُّ الْجُذُورِ وَالأَوْرَاقِ</div>
+        </div>
+        <div class="bg-amber-950/30 border border-amber-500/20 rounded-2xl p-4">
+          <div class="text-3xl mb-1">🌾</div>
+          <div class="text-xs font-bold text-amber-200">3. السَّنَابِلُ الذَّهَبِيَّةُ</div>
+        </div>
+        <div class="bg-amber-950/30 border border-amber-500/20 rounded-2xl p-4">
+          <div class="text-3xl mb-1">🍞</div>
+          <div class="text-xs font-bold text-amber-200">4. الطَّحْنُ وَصُنْعُ الْخُبْزِ</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Welcome & Direct Call To Action -->
+    <section class="glass-card p-10 md:p-12 text-center relative overflow-hidden">
+      <!-- Ambient Glow -->
+      <div class="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-amber-500/10 pointer-events-none"></div>
+
+      <div class="relative z-10">
+        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-4xl shadow-xl border-2 border-yellow-200">
+          🤝
+        </div>
+
+        <h2 class="text-2xl md:text-4xl font-black font-cairo gold-gradient-text mb-3">
+          أهلا بزيارتكم
+        </h2>
+        <p class="text-sm md:text-lg font-bold text-amber-100/90 mb-8 max-w-xl mx-auto">
+          "يَتََجْمُلُ اللِّقَاءَ بِتَوَاجُدِكُمُ الْبَنَّاءِ وَالْمُثْمِرِ فِي رِحْلَتِنَا التَّعْلِيمِيَّةِ التَّفَاعُلِيَّةِ"
+        </p>
+
+        <!-- Direct Action Button -->
+        <a href="https://hindobia.github.io/my-lessons/wheat_journey_interactive_lesson.html" 
+           target="_blank" 
+           onclick="launchConfetti(event)"
+           class="btn-gold-3d inline-flex items-center justify-center gap-4 px-8 py-5 rounded-2xl text-lg md:text-xl font-black">
+          <i class="fa-solid fa-wheat-awn text-yellow-300 text-2xl"></i>
+          <span>اضْغَطْ هُنَا لِلانْتِقَالِ الْمُبَاشِرِ لِلدَّرْسِ التَّفَاعُلِيِّ</span>
+          <i class="fa-solid fa-arrow-left text-yellow-300 text-xl"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Single Line Footer -->
+    <footer class="glass-card p-6">
+      <div class="flex flex-row justify-between items-center w-full text-xs md:text-sm font-bold gap-4">
+        
+        <!-- Right Side Rights Text -->
+        <div class="text-amber-200 text-right">
+          جميع الحقوق التعليمية محفوظة | أ. هند القرني
+        </div>
+
+        <!-- Left Side Coding Text & WhatsApp -->
+        <div class="flex items-center gap-3 text-emerald-300 text-left">
+          <span>تصميم وبرمجة وتنفيذ : Vanta Voids 💻</span>
+          <a href="https://wa.me/966565588869" target="_blank" class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xl shadow-lg hover:scale-110 transition active:scale-95 shrink-0" title="تواصل عبر الواتساب">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Background Animated Particles JavaScript -->
+  <script>
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const particleCount = 45;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.5 + 0.8;
+        this.speedY = -(Math.random() * 0.4 + 0.1);
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.6 + 0.2;
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+
+        if (this.y < 0 || this.x < 0 || this.x > canvas.width) {
+          this.y = canvas.height + 10;
+          this.x = Math.random() * canvas.width;
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(245, 158, 11, ${this.opacity})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#fef08a';
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
+
+    animateParticles();
+
+    function launchConfetti(e) {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.7 }
+      });
+    }
+  </script>
+</body>
+</html>
